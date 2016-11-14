@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 
+
 public class ClubTest extends SQLBasedTest{
 
 	private static EntityManagerFactory emf;
@@ -36,6 +37,8 @@ public class ClubTest extends SQLBasedTest{
 		
 		swim.entities.TransactionUtils.doTransaction(emf, em ->{
 				club.setName("ClubName");
+				club.setCity("ClubCity");
+				club.setFoundationYear(1999);
 				em.persist(club);
 			}
 		);
@@ -48,4 +51,43 @@ public class ClubTest extends SQLBasedTest{
 		rs.next();
 		assertEquals(1, rs.getInt("total"));
 	}
+	
+	@Test
+	public void testFindById() throws SQLException{
+		Statement statement = jdbcConnection.createStatement();
+		int insertedId = statement.executeUpdate(
+				"INSERT INTO Club(name,city,foundationYear) VALUES('ClubName','ClubCity',1999)",Statement.RETURN_GENERATED_KEYS);
+		
+		Club club= emf.createEntityManager().find(Club.class, insertedId);
+		
+		assertEquals("ClubName", club.getName());
+		assertEquals("ClubCity", club.getCity());
+		assertEquals(1999, club.getFoundationYear());
+		assertEquals(insertedId,club.getId());
+	}
+	@Test
+	public void testDeleteClub() throws SQLException{
+		Statement statement = jdbcConnection.createStatement();
+		int insertedId = statement.executeUpdate(
+				"INSERT INTO Club(name,city,foundationYear) VALUES('ClubName','ClubCity',1999)",Statement.RETURN_GENERATED_KEYS);
+		
+		Club club= emf.createEntityManager().find(Club.class, insertedId);
+		swim.entities.TransactionUtils.doTransaction(emf, em->{
+			//Club club=em.find(Club.class, insertedId);
+			em.remove(em.contains(club) ? club : em.merge(club));
+		});
+		
+		
+		statement = jdbcConnection.createStatement();
+		ResultSet rs = statement.executeQuery(
+				"SELECT COUNT(*) as total FROM Club WHERE id = "+club.getId());
+		rs.next();
+		assertEquals(0, rs.getInt("total"));
+	}
+	
+	
+	
+	
+	
+	
 }
