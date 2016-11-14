@@ -31,5 +31,59 @@ public class Mark {
 	private Club club;
 	
 	private LocalDate date;
+
+	public long getMark() {
+		return mark;
+	}
+
+	public void setMark(long mark) {
+		this.mark = mark;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public SwimmingPool getSwimmingPool() {
+		return swimmingPool;
+	}
+
+	public void setSwimmingPool(SwimmingPool swimmingPool) {
+		this.swimmingPool = swimmingPool;
+	}
+
+	public Swimmer getSwimmer() {
+		return swimmer;
+	}
+
+	public void setSwimmer(Swimmer swimmer) {
+		this.swimmer = swimmer;
+	}
+
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public int getId() {
+		return id;
+	}
+	
+	
 	
 }
