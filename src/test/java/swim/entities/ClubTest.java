@@ -13,8 +13,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-
 public class ClubTest extends SQLBasedTest{
 
 	private static EntityManagerFactory emf;

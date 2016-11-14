@@ -41,39 +41,35 @@ public class SwimmerTest extends SQLBasedTest{
 				em.persist(swimmer);
 			}
 		);
-		
-		//check
-		
 		Statement statement = jdbcConnection.createStatement();
 		ResultSet rs = statement.executeQuery(
 				"SELECT COUNT(*) as total FROM Swimmer WHERE id = "+swimmer.getId());
 		rs.next();
 		assertEquals(1, rs.getInt("total"));
 	}
-	
-	@Test
-	public void testFindById() throws Exception{
-		Statement statement = jdbcConnection.createStatement();
-		int insertedId = this.idGen(statement);
-		Swimmer swimmer = new Swimmer();
-		try{
-			swimmer= emf.createEntityManager().find(Swimmer.class, insertedId);//esta tirando nulo
-		}catch(RuntimeException ex ){
-			throw new Exception(ex);
-		}
-		assertEquals("pepito", swimmer.getName());
-		assertEquals("reinoso", swimmer.getSurname());
-		assertEquals(1992, swimmer.getBirthyear());
-		assertEquals(true, swimmer.isSex());
-		assertEquals("28374RJ3", swimmer.getLicense());
-		assertEquals(insertedId, swimmer.getId());
-	}
+
+    @Test
+    public void testFindById() throws SQLException{
+        Statement statement = jdbcConnection.createStatement();
+        int insertedId = statement.executeUpdate(
+                "INSERT INTO Swimmer(name,surname,birthyear,sex,license) VALUES('pepito','reinoso',1992,true,'28374RJ3')",Statement.RETURN_GENERATED_KEYS);
+
+        Swimmer swimmer = emf.createEntityManager().find(Swimmer.class, insertedId);
+
+        assertEquals("pepito", swimmer.getName());
+        assertEquals("reinoso", swimmer.getSurname());
+        assertEquals(1992, swimmer.getBirthyear());
+        assertEquals(true, swimmer.isSex());
+        assertEquals("28374RJ3", swimmer.getLicense());
+    }
+
 	@Test
 	public void testDeleteSwimmer() throws SQLException{
 		Statement statement = jdbcConnection.createStatement();
-		int insertedId = this.idGen(statement);
-		
-		Swimmer swimmer= (Swimmer) emf.createEntityManager().find(Swimmer.class, insertedId);
+		int insertedId = statement.executeUpdate("INSERT INTO Swimmer(name,surname,birthYear,sex,license) VALUES('pepito','reinoso',1992,true,'28374RJ3')",
+                Statement.RETURN_GENERATED_KEYS);
+
+		Swimmer swimmer= emf.createEntityManager().find(Swimmer.class, insertedId);
 		swim.entities.TransactionUtils.doTransaction(emf, em->{
 			em.remove(em.contains(swimmer) ? swimmer : em.merge(swimmer));
 		});
@@ -85,14 +81,4 @@ public class SwimmerTest extends SQLBasedTest{
 		assertEquals(0, rs.getInt("total"));
 	}
 
-	private int idGen(Statement statement) throws SQLException
-	{
-		int id;
-	
-		id = statement.executeUpdate(
-					"INSERT INTO Swimmer(name,surname,birthYear,sex,license) VALUES('pepito','reinoso',1992,true,'28374RJ3')",
-					Statement.RETURN_GENERATED_KEYS);
-		
-		return id;
-	}
 }
