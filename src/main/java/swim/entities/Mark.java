@@ -44,9 +44,7 @@ public class Mark {
 		return event;
 	}
 
-	public void setEvent(Event event) {
-		this.event = event;
-	}
+	
 
 	public SwimmingPool getSwimmingPool() {
 		return swimmingPool;
@@ -82,6 +80,16 @@ public class Mark {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setEvent(Event e){
+		if(this.event!=null){
+			this.event.internalRemoveMark(this);
+		}
+		this.event=e;
+		if(e!=null){
+			e.internalAddMark(this);
+		}
 	}
 	
 	

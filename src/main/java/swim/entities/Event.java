@@ -1,5 +1,6 @@
 package swim.entities;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -39,7 +40,7 @@ public class Event {
 	private boolean lap;
 
 	public Set<Mark> getMarks() {
-		return marks;
+		return Collections.unmodifiableSet(marks);
 	}
 
 	public void setMarks(Set<Mark> marks) {
@@ -97,7 +98,18 @@ public class Event {
 	public int getId() {
 		return id;
 	}
+	public void addMark(Mark mark){
+		mark.setEvent(this);
+	}
+	public void removeMark(Mark mark){
+		mark.setEvent(null);
+	}
 	
+	void internalRemoveMark(Mark mark){
+		this.marks.remove(mark);
+	}
 	
-	
+	void internalAddMark(Mark mark){
+		this.marks.add(mark);
+	}
 }
