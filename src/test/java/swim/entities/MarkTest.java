@@ -29,15 +29,15 @@ private static EntityManagerFactory emf;
 	
 	@Test
 	public void testCreateMark() throws SQLException{
-		Club testClub=new Club();
-		Event testEvent=new Event();
-		Swimmer testSwimmer=new Swimmer();
-		SwimmingPool testPool=new SwimmingPool();
+		//Club testClub=new Club();
+		//Event testEvent=new Event();
+		//Swimmer testSwimmer=new Swimmer();
+		//SwimmingPool testPool=new SwimmingPool();
 		Mark mark= new Mark();
 		swim.entities.TransactionUtils.doTransaction(emf, em ->{
 			
 			
-			testClub.setCity("city");
+			/*testClub.setCity("city");
 			testClub.setFoundationYear(2000);
 			testClub.setName("testPool");
 			em.persist(testClub);
@@ -62,15 +62,15 @@ private static EntityManagerFactory emf;
 			testPool.setClub(testClub);
 			testPool.setName("poolname");
 			testPool.setSize(50);
-			em.persist(testPool);
+			em.persist(testPool);*/
 			
 			
-			mark.setClub(testClub);
+			//mark.setClub(testClub);
 			mark.setDate(LocalDate.now());
-			mark.setEvent(testEvent);
+			//mark.setEvent(testEvent);
 			mark.setMark(140503);
-			mark.setSwimmer(testSwimmer);
-			mark.setSwimmingPool(testPool);
+			//mark.setSwimmer(testSwimmer);
+			//mark.setSwimmingPool(testPool);
 			em.persist(mark);
 		}
 	);

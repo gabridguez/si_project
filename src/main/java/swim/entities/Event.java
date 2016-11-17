@@ -1,9 +1,12 @@
 package swim.entities;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Event {
@@ -26,11 +29,22 @@ public class Event {
 	
 	private strokes stroke; 
 
+	@OneToMany(mappedBy="event")
+	private Set<Mark> marks;
+	
 	//strokes a;
 	//a=strokes.BACKSTROKE;
 	//System.out.println(a);
 	
 	private boolean lap;
+
+	public Set<Mark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(Set<Mark> marks) {
+		this.marks = marks;
+	}
 
 	public String getName() {
 		return name;
