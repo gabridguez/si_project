@@ -1,9 +1,8 @@
 package swim.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collections;
+import java.util.Set;
 
 
 @Entity
@@ -19,6 +18,27 @@ public class Club {
 	
 	private int foundationYear;
 
+	@OneToMany(mappedBy="club")
+	private Set<Mark> marks;
+
+	public Set<Mark> getMarks() {
+		return Collections.unmodifiableSet(marks);
+	}
+
+    @OneToMany(mappedBy="club")
+    private Set<SwimmingPool> pools;
+
+    public Set<SwimmingPool> getPools() {
+        return Collections.unmodifiableSet(pools);
+    }
+
+    @OneToMany(mappedBy="club")
+    private Set<Swimmer> swimmers;
+
+    public Set<Swimmer> getSwimmers() {
+        return Collections.unmodifiableSet(swimmers);
+    }
+
 	public String getName() {
 		return name;
 	}
@@ -27,25 +47,59 @@ public class Club {
 		this.name = name;
 	}
 
-	public String getCity() {
+	String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	void setCity(String city) {
 		this.city = city;
 	}
 
-	public int getFoundationYear() {
+	int getFoundationYear() {
 		return foundationYear;
 	}
 
-	public void setFoundationYear(int foundationYear) {
+	void setFoundationYear(int foundationYear) {
 		this.foundationYear = foundationYear;
 	}
 
 	public int getId() {
 		return id;
 	}
-	
-	
+
+	void internalRemoveMark(Mark mark){
+		this.marks.remove(mark);
+	}
+
+	void internalAddMark(Mark mark){
+		this.marks.add(mark);
+	}
+
+	public void addMark(Mark mark){
+		mark.setClub(this);
+	}
+
+    void internalRemovePool(SwimmingPool swimmingPool){
+        this.pools.remove(swimmingPool);
+    }
+
+    void internalAddPool(SwimmingPool pool){
+        this.pools.add(pool);
+    }
+
+    public void addPool(SwimmingPool swimmingPool){
+        swimmingPool.setClub(this);
+    }
+
+    void internalRemoveSwimmer(Swimmer swimmer){
+        this.swimmers.remove(swimmer);
+    }
+
+    void internalAddSwimmer(Swimmer swimmer){
+        this.swimmers.add(swimmer);
+    }
+
+    public void addSwimmer(Swimmer swimmer){
+        swimmer.setClub(this);
+    }
 }

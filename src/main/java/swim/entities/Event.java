@@ -98,17 +98,18 @@ public class Event {
 	public int getId() {
 		return id;
 	}
+
 	public void addMark(Mark mark){
 		mark.setEvent(this);
 	}
 	public void removeMark(Mark mark){
 		mark.setEvent(null);
 	}
-	
+
 	void internalRemoveMark(Mark mark){
 		this.marks.remove(mark);
 	}
-	
+
 	void internalAddMark(Mark mark){
 		this.marks.add(mark);
 	}

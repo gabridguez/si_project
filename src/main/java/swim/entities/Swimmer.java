@@ -1,11 +1,8 @@
 package swim.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 public class Swimmer {
@@ -23,6 +20,13 @@ public class Swimmer {
 	private boolean sex;
 	
 	private String license;
+
+	@OneToMany(mappedBy="swimmer")
+	private Set<Mark> marks;
+
+	public Set<Mark> getMarks() {
+		return Collections.unmodifiableSet(marks);
+	}
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Club club;
@@ -35,35 +39,35 @@ public class Swimmer {
 		this.name = name;
 	}
 
-	public String getSurname() {
+	String getSurname() {
 		return surname;
 	}
 
-	public void setSurname(String surname) {
+	void setSurname(String surname) {
 		this.surname = surname;
 	}
 
-	public int getBirthyear() {
+	int getBirthyear() {
 		return birthyear;
 	}
 
-	public void setBirthyear(int birthyear) {
+	void setBirthyear(int birthyear) {
 		this.birthyear = birthyear;
 	}
 
-	public boolean isSex() {
+	boolean isSex() {
 		return sex;
 	}
 
-	public void setSex(boolean sex) {
+	void setSex(boolean sex) {
 		this.sex = sex;
 	}
 
-	public String getLicense() {
+	String getLicense() {
 		return license;
 	}
 
-	public void setLicense(String license) {
+	void setLicense(String license) {
 		this.license = license;
 	}
 
@@ -71,13 +75,30 @@ public class Swimmer {
 		return club;
 	}
 
-	public void setClub(Club club) {
-		this.club = club;
+	public void addMark(Mark mark){
+		mark.setSwimmer(this);
 	}
 
 	public int getId() {
 		return id;
 	}
-	
-	
+
+	void internalRemoveMark(Mark mark){
+		this.marks.remove(mark);
+	}
+
+	void internalAddMark(Mark mark){
+		this.marks.add(mark);
+	}
+
+	void setClub(Club e){
+		if(this.club!=null){
+			this.club.internalRemoveSwimmer(this);
+		}
+		this.club=e;
+		if(e!=null){
+			e.internalAddSwimmer(this);
+		}
+	}
+
 }

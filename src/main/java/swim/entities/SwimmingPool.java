@@ -1,14 +1,11 @@
 package swim.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
-public class SwimmingPool {
+class SwimmingPool {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,6 +20,13 @@ public class SwimmingPool {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Club club;
 
+	@OneToMany(mappedBy="swimmingPool")
+	private Set<Mark> marks;
+
+	public Set<Mark> getMarks() {
+		return Collections.unmodifiableSet(marks);
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -31,19 +35,19 @@ public class SwimmingPool {
 		this.name = name;
 	}
 
-	public String getAddress() {
+	String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	void setAddress(String address) {
 		this.address = address;
 	}
 
-	public int getSize() {
+	int getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+    void setSize(int size) {
 		this.size = size;
 	}
 
@@ -51,14 +55,31 @@ public class SwimmingPool {
 		return club;
 	}
 
-	public void setClub(Club club) {
-		this.club = club;
-	}
 
 	public int getId() {
 		return id;
 	}
-	
-	
+
+	void internalRemoveMark(Mark mark){
+		this.marks.remove(mark);
+	}
+
+	void internalAddMark(Mark mark){
+		this.marks.add(mark);
+	}
+
+	public void addMark(Mark mark){
+		mark.setSwimmingPool(this);
+	}
+
+    void setClub(Club e){
+        if(this.club!=null){
+            this.club.internalRemovePool(this);
+        }
+        this.club=e;
+        if(e!=null){
+            e.internalAddPool(this);
+        }
+    }
 	
 }
