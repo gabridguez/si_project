@@ -47,19 +47,19 @@ public class Club {
 		this.name = name;
 	}
 
-	String getCity() {
+	public String getCity() {
 		return city;
 	}
 
-	void setCity(String city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 
-	int getFoundationYear() {
+	public int getFoundationYear() {
 		return foundationYear;
 	}
 
-	void setFoundationYear(int foundationYear) {
+	public void setFoundationYear(int foundationYear) {
 		this.foundationYear = foundationYear;
 	}
 

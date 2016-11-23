@@ -37,7 +37,7 @@ class Mark {
 		return mark;
 	}
 
-	void setMark(long mark) {
+	public void setMark(long mark) {
 		this.mark = mark;
 	}
 
@@ -61,7 +61,7 @@ class Mark {
 		return date;
 	}
 
-	void setDate(LocalDate date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -69,7 +69,7 @@ class Mark {
 		return id;
 	}
 
-	void setEvent(Event e){
+	public void setEvent(Event e){
 		if(this.event!=null){
 			this.event.internalRemoveMark(this);
 		}
@@ -79,7 +79,7 @@ class Mark {
 		}
 	}
 
-	void setSwimmingPool(SwimmingPool e){
+	public void setSwimmingPool(SwimmingPool e){
 		if(this.swimmingPool!=null){
 			this.swimmingPool.internalRemoveMark(this);
 		}
@@ -89,7 +89,7 @@ class Mark {
 		}
 	}
 
-	void setSwimmer(Swimmer e){
+	public void setSwimmer(Swimmer e){
 		if(this.swimmer!=null){
 			this.swimmer.internalRemoveMark(this);
 		}
@@ -99,7 +99,7 @@ class Mark {
 		}
 	}
 
-	void setClub(Club e){
+	public void setClub(Club e){
 		if(this.club!=null){
 			this.club.internalRemoveMark(this);
 		}

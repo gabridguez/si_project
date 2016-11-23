@@ -35,19 +35,19 @@ class SwimmingPool {
 		this.name = name;
 	}
 
-	String getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	void setAddress(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	int getSize() {
+	public int getSize() {
 		return size;
 	}
 
-    void setSize(int size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 
@@ -72,7 +72,7 @@ class SwimmingPool {
 		mark.setSwimmingPool(this);
 	}
 
-    void setClub(Club e){
+	public void setClub(Club e){
         if(this.club!=null){
             this.club.internalRemovePool(this);
         }

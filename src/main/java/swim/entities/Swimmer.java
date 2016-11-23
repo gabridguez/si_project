@@ -39,35 +39,35 @@ public class Swimmer {
 		this.name = name;
 	}
 
-	String getSurname() {
+	public String getSurname() {
 		return surname;
 	}
 
-	void setSurname(String surname) {
+	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
-	int getBirthyear() {
+	public int getBirthyear() {
 		return birthyear;
 	}
 
-	void setBirthyear(int birthyear) {
+	public void setBirthyear(int birthyear) {
 		this.birthyear = birthyear;
 	}
 
-	boolean isSex() {
+	public boolean isSex() {
 		return sex;
 	}
 
-	void setSex(boolean sex) {
+	public void setSex(boolean sex) {
 		this.sex = sex;
 	}
 
-	String getLicense() {
+	public String getLicense() {
 		return license;
 	}
 
-	void setLicense(String license) {
+	public void setLicense(String license) {
 		this.license = license;
 	}
 
@@ -91,7 +91,7 @@ public class Swimmer {
 		this.marks.add(mark);
 	}
 
-	void setClub(Club e){
+	public void setClub(Club e){
 		if(this.club!=null){
 			this.club.internalRemoveSwimmer(this);
 		}
