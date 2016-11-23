@@ -2,7 +2,9 @@ package swim.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SQLBasedTest {
 protected static Connection jdbcConnection;
@@ -31,6 +33,22 @@ protected static Connection jdbcConnection;
 		
 		Class.forName(JDBC_DRIVER);
 		return DriverManager.getConnection(DB_URL,USER,PASS);
+	}
+	
+	public static void renewConnection() throws ClassNotFoundException, SQLException {
+		try {
+			jdbcConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		jdbcConnection = createConnection();
+	}
+	
+	public int getLastInsertedId(Statement statement) throws SQLException {
+		ResultSet rs = statement.getGeneratedKeys();
+		rs.next();
+		return rs.getInt(1);
 	}
 	
 }

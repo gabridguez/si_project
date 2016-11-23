@@ -107,13 +107,5 @@ class Mark {
 		if(e!=null){
 			e.internalAddMark(this);
 		}
-	}
-
-
-
-
-
-	
-	
-	
+	}	
 }
