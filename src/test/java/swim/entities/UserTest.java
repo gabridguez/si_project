@@ -52,5 +52,22 @@ private static EntityManagerFactory emf;
 		rs.next();
 		assertEquals(1, rs.getInt("total"));
 	}
+	
+	@Test
+	public void testDeleteUser() throws SQLException{
+		Statement statement = jdbcConnection.createStatement();
+		int insertedId = statement.executeUpdate("INSERT INTO User(name,email,login,pass) VALUES('nombre','email','login','pass')",
+                Statement.RETURN_GENERATED_KEYS);
+		User user= emf.createEntityManager().find(User.class, insertedId);
+		swim.entities.TransactionUtils.doTransaction(emf, em->{
+			//Club club=em.find(Club.class, insertedId);
+			em.remove(em.contains(user) ? user : em.merge(user));
+		});
+		statement = jdbcConnection.createStatement();
+		ResultSet rs = statement.executeQuery(
+				"SELECT COUNT(*) as total FROM Mark WHERE id = "+user.getId());
+		rs.next();
+		assertEquals(0, rs.getInt("total"));
+	}
 
 }

@@ -92,4 +92,23 @@ private static EntityManagerFactory emf;
 		rs.next();
 		assertEquals(1, rs.getInt("total"));
 	}
+	
+	@Test
+	public void testDeleteMark() throws SQLException{
+		Statement statement = jdbcConnection.createStatement();
+		int insertedId = statement.executeUpdate("INSERT INTO Mark(mark,date) VALUES(1394294,now())",
+                Statement.RETURN_GENERATED_KEYS);
+		Mark mark= emf.createEntityManager().find(Mark.class, insertedId);
+		swim.entities.TransactionUtils.doTransaction(emf, em->{
+			//Club club=em.find(Club.class, insertedId);
+			em.remove(em.contains(mark) ? mark : em.merge(mark));
+		});
+		
+		
+		statement = jdbcConnection.createStatement();
+		ResultSet rs = statement.executeQuery(
+				"SELECT COUNT(*) as total FROM Mark WHERE id = "+mark.getId());
+		rs.next();
+		assertEquals(0, rs.getInt("total"));
+	}
 }

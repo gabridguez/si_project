@@ -24,12 +24,13 @@ public class Swimmer {
 	@OneToMany(mappedBy="swimmer")
 	private Set<Mark> marks;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Club club;
+	
+	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Club club;
 
 	public String getName() {
 		return name;

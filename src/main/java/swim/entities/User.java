@@ -8,6 +8,10 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
+	public enum UserType{
+		USER,ADMIN
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -17,10 +21,6 @@ public class User {
 	private String email;
 	
 	private String login;
-	
-	public enum UserType{
-		USER,ADMIN
-	}
 	
 	private UserType type;
 	

@@ -21,19 +21,21 @@ public class Club {
 	@OneToMany(mappedBy="club")
 	private Set<Mark> marks;
 
+	@OneToMany(mappedBy="club")
+    private Set<SwimmingPool> pools;
+	
+	@OneToMany(mappedBy="club")
+    private Set<Swimmer> swimmers;
+	
+	
+	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
-
-    @OneToMany(mappedBy="club")
-    private Set<SwimmingPool> pools;
-
+    
     public Set<SwimmingPool> getPools() {
         return Collections.unmodifiableSet(pools);
     }
-
-    @OneToMany(mappedBy="club")
-    private Set<Swimmer> swimmers;
 
     public Set<Swimmer> getSwimmers() {
         return Collections.unmodifiableSet(swimmers);

@@ -11,6 +11,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Event {
+	
+	public enum strokes{
+		BUTTERFLY,CRAWL,BREASTROKE,BACKSTROKE
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,21 +28,14 @@ public class Event {
 	
 	private int meters;
 	
-	public enum strokes{
-		BUTTERFLY,CRAWL,BREASTROKE,BACKSTROKE
-	}
-	
 	private strokes stroke; 
 
 	@OneToMany(mappedBy="event")
 	private Set<Mark> marks;
 	
-	//strokes a;
-	//a=strokes.BACKSTROKE;
-	//System.out.println(a);
-	
 	private boolean lap;
 
+	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}

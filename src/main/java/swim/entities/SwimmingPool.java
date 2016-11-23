@@ -23,6 +23,7 @@ class SwimmingPool {
 	@OneToMany(mappedBy="swimmingPool")
 	private Set<Mark> marks;
 
+	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
