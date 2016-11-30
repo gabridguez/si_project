@@ -1,0 +1,38 @@
+<zk>
+	<window title="Swimmers" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.SwimmersVM')">
+
+		<vbox>
+
+
+
+			<hbox>
+			<grid height="350px" model="@load(vm.swimmers)"
+            emptyMessage="There are no swimmers here.">
+            <columns>
+                <column label="Name" width="50px" />
+                
+            </columns>
+            <template name="model">
+                <row>
+                    
+                    <label value="@load(each.name)" />
+                    <button label="Delete" onClick="@command('removeSwimmer', swimmer=each)" />
+                </row>
+            </template>
+        </grid>
+				
+			</hbox>
+		</vbox>
+
+
+
+
+
+
+
+
+
+	</window>
+</zk>
