@@ -11,13 +11,22 @@
 			<grid height="350px" model="@load(vm.swimmers)"
             emptyMessage="There are no swimmers here.">
             <columns>
-                <column label="Name" width="50px" />
-                
+            	<column label="License" />
+                <column label="Name"/>
+                <column label="Surname" />
+                <column label="Birth year" />
+                <column label="Sex" />
+                <column label="Club" />
+                <column label="Do something" />
             </columns>
             <template name="model">
                 <row>
-                    
+                    <label value="@load(each.license)" />
                     <label value="@load(each.name)" />
+                    <label value="@load(each.surname)" />
+                    <label value="@load(each.birthyear)" />
+                    <label value="@load(each.sex)" />
+                    <label value="@load(each.club.name)" />
                     <button label="Delete" onClick="@command('removeSwimmer', swimmer=each)" />
                 </row>
             </template>
