@@ -1,3 +1,6 @@
 <zk>
-	<window title="Hello World" border="normal"></window>
+	<window title="Home">
+
+		<button label="swimmers" href="swimmers.zul"/>
+	</window>
 </zk>

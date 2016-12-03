@@ -29,10 +29,7 @@ private static EntityManagerFactory emf;
 	
 	@Test
 	public void testLazyInizalizationException() throws SQLException{
-		/*recuperar un evento en una transaccion, entonces nos cerrará la transaccion 
-		y quedará en estado detached, si accedemos a la lista de marcas del event, al ser lazy,
-		fallará
-		*/
+
 		swim.entities.TransactionUtils.doTransaction(emf,em->{
 			
 		});

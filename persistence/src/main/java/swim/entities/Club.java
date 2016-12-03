@@ -27,8 +27,6 @@ public class Club {
 	@OneToMany(mappedBy="club")
     private Set<Swimmer> swimmers;
 	
-	
-	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
