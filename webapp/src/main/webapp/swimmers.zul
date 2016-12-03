@@ -1,12 +1,7 @@
 <zk>
-
-
-
-	<window title="Swimmers" border="normal"
+<window title="Swimmers" border="normal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('jag.webapp.viewmodels.SwimmersVM')">
-
-		<vbox>
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.SwimmersVM')"><vbox>
 			<hbox>
 				<tabbox width="100%" sclass="nav_tabs">
 					<tabs id="tabs">

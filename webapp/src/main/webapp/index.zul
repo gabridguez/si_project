@@ -2,5 +2,6 @@
 	<window title="Home">
 
 		<button label="swimmers" href="swimmers.zul"/>
+		<button label="clubs" href="club.zul"/>
 	</window>
 </zk>

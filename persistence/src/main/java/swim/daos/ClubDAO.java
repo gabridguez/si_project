@@ -1,10 +1,19 @@
+package swim.daos;
+
+import java.util.HashSet;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import swim.entities.Club;
+
 public class ClubDAO{
 
-    private EntityManager entityManager;
+    private EntityManager em;
 
     public ClubDAO(EntityManager entityManager)
     {
-        this.entityManager = entityManager;
+        this.em = entityManager;
     }
 
     public void createClub(Club club) {

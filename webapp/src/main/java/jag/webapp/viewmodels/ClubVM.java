@@ -1,6 +1,5 @@
     package jag.webapp.viewmodels;
 
-
     import swim.entities.Club;
     import swim.daos.ClubDAO;
 
@@ -16,18 +15,18 @@
 
     public class ClubVM {
 
-    	private Set<Swimmer> swimmers;
+    	private Set<Club> clubs;
 
     	private DateConverter dateConverter;
 
-    	private Swimmer newSwimmer;
+    	private Club club;
 
-    	private ClubDAO sDAO;
+    	private ClubDAO clubDAO;
 
     	public ClubVM(){
     		this.dateConverter=new DateConverter();
-    		this.sDAO=new ClubDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-    		this.Clubs=(Set<Club>) sDAO.findAllClubs();
+    		this.clubDAO=new ClubDAO(DesktopEntityManagerManager.getDesktopEntityManager());
+    		this.clubs=(Set<Club>) clubDAO.findAllClubs();
 
     	}
 
@@ -36,16 +35,16 @@
     	}
 
     	public Set<Club> getClubs(){
-    		return this.Clubs;//Set<Club>) sDAO.findAllClubs();
+    		return this.clubs;
     	}
 
 
     	public Club getNewClub() {
-    		return newClub;
+    		return this.club;
     	}
 
     	public void setNewClub(Club newClub) {
-    		this.newClub = newClub;
+    		this.club = newClub;
     	}
 
     	public int getClubsCount() {
@@ -53,23 +52,23 @@
     	}
 
     	@Command
-    	@NotifyChange("Clubs")
-    	public void removeClub(@BindingParam("Club") Club club){
-    		sDAO.removeClub(Club.getId());
-    		this.Clubs=(Set<Club>) sDAO.findAllClubs();
+    	@NotifyChange("clubs")
+    	public void removeClub(@BindingParam("club") Club club){
+    		clubDAO.removeClub(club.getId());
+    		this.clubs=(Set<Club>) clubDAO.findAllClubs();
     	}
 
     	@Command
-    	@NotifyChange("cluba")
+    	@NotifyChange("clubs")
     	public void submitClub() {
-    		this.sDAO.createClub(this.newClub);
-    		this.Clubs=(Set<Club>) sDAO.findAllClubs();
+    		this.clubDAO.createClub(this.club);
+    		this.clubs=(Set<Club>) clubDAO.findAllClubs();
     		initNewClub();
     	}
 
 
     	public void initNewClub(){
-    		this.newClub=new Club();
+    		this.club=new Club();
 
     	}
 

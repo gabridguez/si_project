@@ -1,0 +1,112 @@
+<zk>
+    <window title="Clubs" border="normal"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('jag.webapp.viewmodels.ClubVM')">
+        <vbox>
+            <hbox>
+                <tabbox width="100%" sclass="nav_tabs">
+                    <tabs id="tabs">
+                        <tab label="Show Clubs"/>
+                        <tab label="Create Club" onClick="vm.initNewClub()"/>
+                    </tabs>
+                    <toolbar sclass="nav_toolbar">
+                        <toolbarbutton target="_zkdemo" style="color: #696569;" iconSclass="z-icon-github-square"
+                                       href="https://github.com/gabridguez/si_project"/>
+                    </toolbar>
+                    <tabpanels>
+                        <tabpanel>
+                            <grid height="350px"
+                                  model="@load(vm.clubs)"
+                                  emptyMessage="There are no clubs here.">
+                                <columns>
+                                    <column label="Name"/>
+                                    <column label="City"/>
+                                    <column label="Foundation year"/>
+                                    <column label="Marks"/>
+                                    <column label="Pools"/>
+                                    <column label="Swimmers"/>
+                                </columns>
+                                <template name="model">
+                                    <row>
+                                        <label value="@load(each.name)"/>
+                                        <label value="@load(each.city)"/>
+                                        <label value="@load(each.foundationYear)"/>
+                                        <label value="@load(each.marks)"/>
+                                        <label value="@load(each.pools)"/>
+                                        <button label="Delete" onClick="@command('removeClub', club=each)"/>
+                                    </row>
+                                </template>
+                            </grid>
+                        </tabpanel>
+                        <tabpanel>
+                            <grid>
+                                <rows>
+                                    <row>
+
+                                        Name:
+                                        <textbox
+                                                value="@bind(vm.newClub.name)">
+                                        </textbox>
+
+                                    </row>
+                                    <row>
+
+                                        City:
+                                        <textbox
+                                                value="@bind(vm.newClub.city)">
+                                        </textbox>
+
+                                    </row>
+                                    <row>
+
+                                        Foundation year:
+                                        <textbox
+                                                value="@bind(vm.newClub.foundationYear)">
+                                        </textbox>
+
+                                    </row>
+                                    <row>
+
+                                        Marks:
+                                        <textbox
+                                                value="@bind(vm.newClub.marks)">
+                                        </textbox>
+
+                                    </row>
+                                    <row>
+
+                                        Pools:
+                                        <textbox
+                                                value="@bind(vm.newClub.pools)">
+                                        </textbox>
+
+                                    </row>
+                                    <row>
+
+                                        Swimmers:
+                                        <textbox
+                                                value="@bind(vm.newClub.swimmers)">
+                                        </textbox>
+
+                                    </row>
+                                    <row>
+                                        <button
+                                                onClick="@command('submitClub')" label="submit"
+                                                disabled="@bind(vm.newClub.name eq '' || vm.newClub.city eq ''|| vm.newClub.foundationYear eq '0')">
+                                        </button>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </tabpanel>
+                        <tabpanel>
+
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+
+            </hbox>
+
+        </vbox>
+
+    </window>
+</zk>
