@@ -29,7 +29,6 @@ public class ClubDAO{
     public void removeClub(int id) {
         Club c = findClub(id);
         if (c != null) {
-            //emf.createEntityManager().remove(c);
             swim.entities.TransactionUtils.doTransaction(this.em, em->{
 
                 em.remove(em.contains(c) ? c : em.merge(c));

@@ -65,30 +65,7 @@
                                         </textbox>
 
                                     </row>
-                                    <row>
-
-                                        Marks:
-                                        <textbox
-                                                value="@bind(vm.newClub.marks)">
-                                        </textbox>
-
-                                    </row>
-                                    <row>
-
-                                        Pools:
-                                        <textbox
-                                                value="@bind(vm.newClub.pools)">
-                                        </textbox>
-
-                                    </row>
-                                    <row>
-
-                                        Swimmers:
-                                        <textbox
-                                                value="@bind(vm.newClub.swimmers)">
-                                        </textbox>
-
-                                    </row>
+                                 
                                     <row>
                                         <button
                                                 onClick="@command('submitClub')" label="submit"
