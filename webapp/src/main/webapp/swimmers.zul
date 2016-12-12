@@ -1,7 +1,8 @@
 <zk>
-<window title="Swimmers" border="normal"
+	<window title="Swimmers" border="normal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('jag.webapp.viewmodels.SwimmersVM')"><vbox>
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.SwimmersVM')">
+		<vbox>
 			<hbox>
 				<tabbox width="100%" sclass="nav_tabs">
 					<tabs id="tabs">
@@ -27,7 +28,8 @@
 									<column label="Birth year" />
 									<column label="Sex" />
 									<column label="Club" />
-									<column label="Do something" />
+									<column label="Edit" />
+									<column label="Delete" />
 								</columns>
 								<template name="model">
 									<row>
@@ -41,6 +43,8 @@
 										<label value="@load(each.sex)" />
 										<label
 											value="@load(each.club.name)" />
+										<button label="Edit"
+											onClick="@command('editSwimmer', swimmer=each)" />
 										<button label="Delete"
 											onClick="@command('removeSwimmer', swimmer=each)" />
 									</row>
@@ -76,14 +80,14 @@
 									</row>
 									<row>
 
-										
-											Sex:
-											<hbox align="center">
+
+										Sex:
+										<hbox align="center">
 											sex:
-											<listbox selectedItem="@bind(vm.newSwimmer.sex)"
-												 mold="select"
+											<listbox
+												selectedItem="@bind(vm.newSwimmer.sex)" mold="select"
 												tabindex="8">
-												<listitem label="Default" value="" />
+												
 												<listitem label="M"
 													value="true" />
 												<listitem label="F"
@@ -91,159 +95,170 @@
 
 
 											</listbox>
-											</hbox>
-										
+										</hbox>
+
 									</row>
 									<row>
-										
-											Birth Year:
-											<listbox
-												selectedItem="@bind(vm.newSwimmer.birthyear)" mold="select"
-												>
-												<listitem label="Default" value="" />
-												<listitem label="1950"
-													value="1950" />
-												<listitem label="1951"
-													value="1951" />
-												<listitem label="1952"
-													value="1952" />
-												<listitem label="1953"
-													value="1953" />
-												<listitem label="1954"
-													value="1954" />
-												<listitem label="1955"
-													value="1955" />
-												<listitem label="1956"
-													value="1956" />
-												<listitem label="1957"
-													value="1957" />
-												<listitem label="1958"
-													value="1958" />
-												<listitem label="1959"
-													value="1959" />
-												<listitem label="1960"
-													value="1960" />
-												<listitem label="1961"
-													value="1961" />
-												<listitem label="1962"
-													value="1962" />
-												<listitem label="1963"
-													value="1963" />
-												<listitem label="1964"
-													value="1964" />
-												<listitem label="1965"
-													value="1965" />
-												<listitem label="1966"
-													value="1966" />
-												<listitem label="1967"
-													value="1967" />
-												<listitem label="1968"
-													value="1968" />
-												<listitem label="1969"
-													value="1969" />
-												<listitem label="1970"
-													value="1970" />
-												<listitem label="1971"
-													value="1971" />
-												<listitem label="1972"
-													value="1972" />
-												<listitem label="1973"
-													value="1973" />
-												<listitem label="1974"
-													value="1974" />
-												<listitem label="1975"
-													value="1975" />
-												<listitem label="1976"
-													value="1976" />
-												<listitem label="1977"
-													value="1977" />
-												<listitem label="1978"
-													value="1978" />
-												<listitem label="1979"
-													value="1979" />
-												<listitem label="1980"
-													value="1980" />
-												<listitem label="1981"
-													value="1981" />
-												<listitem label="1982"
-													value="1982" />
-												<listitem label="1983"
-													value="1983" />
-												<listitem label="1984"
-													value="1984" />
-												<listitem label="1985"
-													value="1985" />
-												<listitem label="1986"
-													value="1986" />
-												<listitem label="1987"
-													value="1987" />
-												<listitem label="1988"
-													value="1988" />
-												<listitem label="1989"
-													value="1989" />
-												<listitem label="1990"
-													value="1990" />
-												<listitem label="1991"
-													value="1991" />
-												<listitem label="1992"
-													value="1992" />
-												<listitem label="1993"
-													value="1993" />
-												<listitem label="1994"
-													value="1994" />
-												<listitem label="1995"
-													value="1995" />
-												<listitem label="1996"
-													value="1996" />
-												<listitem label="1997"
-													value="1997" />
-												<listitem label="1998"
-													value="1998" />
-												<listitem label="1999"
-													value="1999" />
-												<listitem label="2000"
-													value="2000" />
-												<listitem label="2001"
-													value="2001" />
-												<listitem label="2002"
-													value="2002" />
-												<listitem label="2003"
-													value="2003" />
-												<listitem label="2004"
-													value="2004" />
-												<listitem label="2005"
-													value="2005" />
-												<listitem label="2006"
-													value="2006" />
-												<listitem label="2007"
-													value="2007" />
-												<listitem label="2008"
-													value="2008" />
-												<listitem label="2009"
-													value="2009" />
-												<listitem label="2010"
-													value="2010" />
-												<listitem label="2011"
-													value="2011" />
-												<listitem label="2012"
-													value="2012" />
-												<listitem label="2013"
-													value="2013" />
-												<listitem label="2014"
-													value="2014" />
-												<listitem label="2015"
-													value="2015" />
-												<listitem label="2016"
-													value="2016" />
-												<listitem label="2017"
-													value="2017" />
-												<listitem label="2018"
-													value="2018" />
-												<listitem label="2019"
-													value="2019" />
+										Club:
+										<combobox id="clubsCombobox"
+										selectedItem="@bind(vm.newSwimmer.club)"
+											model="${vm.clubs}" autodrop="true">
+											<template name="model">
+												<comboitem
+													label="${each.name}" />
+											</template>
+										</combobox>
+									</row>
+									<row>
 
-											</listbox>
-	
+										Birth Year:
+										<listbox
+											selectedItem="@bind(vm.newSwimmer.birthyear)"
+											mold="select">
+											
+											<listitem label="1950"
+												value="1950" />
+											<listitem label="1951"
+												value="1951" />
+											<listitem label="1952"
+												value="1952" />
+											<listitem label="1953"
+												value="1953" />
+											<listitem label="1954"
+												value="1954" />
+											<listitem label="1955"
+												value="1955" />
+											<listitem label="1956"
+												value="1956" />
+											<listitem label="1957"
+												value="1957" />
+											<listitem label="1958"
+												value="1958" />
+											<listitem label="1959"
+												value="1959" />
+											<listitem label="1960"
+												value="1960" />
+											<listitem label="1961"
+												value="1961" />
+											<listitem label="1962"
+												value="1962" />
+											<listitem label="1963"
+												value="1963" />
+											<listitem label="1964"
+												value="1964" />
+											<listitem label="1965"
+												value="1965" />
+											<listitem label="1966"
+												value="1966" />
+											<listitem label="1967"
+												value="1967" />
+											<listitem label="1968"
+												value="1968" />
+											<listitem label="1969"
+												value="1969" />
+											<listitem label="1970"
+												value="1970" />
+											<listitem label="1971"
+												value="1971" />
+											<listitem label="1972"
+												value="1972" />
+											<listitem label="1973"
+												value="1973" />
+											<listitem label="1974"
+												value="1974" />
+											<listitem label="1975"
+												value="1975" />
+											<listitem label="1976"
+												value="1976" />
+											<listitem label="1977"
+												value="1977" />
+											<listitem label="1978"
+												value="1978" />
+											<listitem label="1979"
+												value="1979" />
+											<listitem label="1980"
+												value="1980" />
+											<listitem label="1981"
+												value="1981" />
+											<listitem label="1982"
+												value="1982" />
+											<listitem label="1983"
+												value="1983" />
+											<listitem label="1984"
+												value="1984" />
+											<listitem label="1985"
+												value="1985" />
+											<listitem label="1986"
+												value="1986" />
+											<listitem label="1987"
+												value="1987" />
+											<listitem label="1988"
+												value="1988" />
+											<listitem label="1989"
+												value="1989" />
+											<listitem label="1990"
+												value="1990" />
+											<listitem label="1991"
+												value="1991" />
+											<listitem label="1992"
+												value="1992" />
+											<listitem label="1993"
+												value="1993" />
+											<listitem label="1994"
+												value="1994" />
+											<listitem label="1995"
+												value="1995" />
+											<listitem label="1996"
+												value="1996" />
+											<listitem label="1997"
+												value="1997" />
+											<listitem label="1998"
+												value="1998" />
+											<listitem label="1999"
+												value="1999" />
+											<listitem label="2000"
+												value="2000" />
+											<listitem label="2001"
+												value="2001" />
+											<listitem label="2002"
+												value="2002" />
+											<listitem label="2003"
+												value="2003" />
+											<listitem label="2004"
+												value="2004" />
+											<listitem label="2005"
+												value="2005" />
+											<listitem label="2006"
+												value="2006" />
+											<listitem label="2007"
+												value="2007" />
+											<listitem label="2008"
+												value="2008" />
+											<listitem label="2009"
+												value="2009" />
+											<listitem label="2010"
+												value="2010" />
+											<listitem label="2011"
+												value="2011" />
+											<listitem label="2012"
+												value="2012" />
+											<listitem label="2013"
+												value="2013" />
+											<listitem label="2014"
+												value="2014" />
+											<listitem label="2015"
+												value="2015" />
+											<listitem label="2016"
+												value="2016" />
+											<listitem label="2017"
+												value="2017" />
+											<listitem label="2018"
+												value="2018" />
+											<listitem label="2019"
+												value="2019" />
+
+										</listbox>
+
 									</row>
 
 									<row>

@@ -1,11 +1,13 @@
 package swim.entities;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
 @Entity
-public class Swimmer {
+public class Swimmer implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
