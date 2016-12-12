@@ -9,7 +9,6 @@
 						<tab label="Show Swimmers" />
 						<tab label="Create Swimmer"
 							onClick="vm.initNewSwimmer()" />
-						<tab label=".....To Do....." />
 					</tabs>
 					<toolbar sclass="nav_toolbar">
 						<toolbarbutton target="_zkdemo"
