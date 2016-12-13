@@ -1,0 +1,183 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Events" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.EventsVM')">
+		<vbox>
+			<groupbox mold="3d" closable="false">
+
+				<caption label="Events list">
+					<button label="new Event"
+						onClick="@command('newEvent')" />
+				</caption>
+
+				<listbox model="@load(vm.events)">
+					<listhead>
+						<listheader label="Chrono" />
+						<listheader label="Lap" />
+						<listheader label="Meters" />
+						<listheader label="Name" />
+						<listheader label="Poolsize" />
+						<listheader label="Stroke" />
+						<listheader label="Actions" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<label value="@load(each.chrono?'E':'M')"></label>
+							</listcell>
+							
+							<listcell>
+								<label value="@load(each.lap?'Y':'N')"></label>
+							</listcell>
+							
+							<listcell>
+								<label value="@load(each.meters)"></label>
+							</listcell>
+							
+							<listcell>
+								<label value="@load(each.name)"></label>
+							</listcell>
+							
+							<listcell>
+								<label value="@load(each.poolSize)"></label>
+							</listcell>
+							
+							<listcell>
+								<label value="@load(each.stroke)"></label>
+							</listcell>
+							
+							
+							<listcell>
+								<button label="delete"
+									onClick="@command('removeEvent', event=each)" />
+								<button label="edit"
+									onClick="@command('editEvent', event=each)" />
+
+							</listcell>
+						</listitem>
+					</template>
+
+				</listbox>
+
+			</groupbox>
+		</vbox>
+	
+
+	<window title="Events Editor" border="normal" mode="modal"
+		visible="@load(vm.currentEvent ne null)">
+		
+
+		<grid>
+			<rows>
+				<row>
+
+					Chronometer:
+					<hbox align="center">
+						
+						<listbox model="@bind(vm.possibleChrono)"
+							selectedItem="@load(vm.currentEvent.chrono) @save(vm.currentEvent.chrono, before='save')"
+							mold="select" tabindex="8">
+							<template name="model">
+								<listitem label="@load(each?'E':'M')"
+									value="@load(each)" />
+							</template>
+
+
+						</listbox>
+					</hbox>
+
+				</row>
+				<row>
+
+					Lap:
+					<hbox align="center">
+						
+						<listbox model="@bind(vm.possibleLap)"
+							selectedItem="@load(vm.currentEvent.lap) @save(vm.currentEvent.lap, before='save')"
+							mold="select" tabindex="8">
+							<template name="model">
+								<listitem label="@load(each?'Y':'N')"
+									value="@load(each)" />
+							</template>
+
+
+						</listbox>
+					</hbox>
+
+				</row>
+				<row>
+
+					Meters:
+					<hbox align="center">
+						
+						<listbox model="@bind(vm.possibleMeters)"
+							selectedItem="@load(vm.currentEvent.meters) @save(vm.currentEvent.meters, before='save')"
+							mold="select" tabindex="8">
+							<template name="model">
+								<listitem label="@load(each)"
+									value="@load(each)" />
+							</template>
+
+
+						</listbox>
+					</hbox>
+
+				</row>
+				<row>
+
+
+					Name:
+					<textbox
+						value="@load(vm.currentEvent.name) @save(vm.currentEvent.name, before='save')"/>
+					
+
+				</row>
+				<row>
+					Pool size:
+					<hbox align="center">
+						
+						<listbox model="@bind(vm.possibleSizes)"
+							selectedItem="@load(vm.currentEvent.poolSize) @save(vm.currentEvent.poolSize, before='save')"
+							mold="select" tabindex="8">
+							<template name="model">
+								<listitem label="@load(each)"
+									value="@load(each)" />
+							</template>
+
+
+						</listbox>
+					</hbox>
+				</row>
+				<row>
+
+					Stroke:
+					<hbox align="center">
+						
+						<listbox model="@bind(vm.possibleStrokes)"
+							selectedItem="@load(vm.currentEvent.stroke) @save(vm.currentEvent.stroke, before='save')"
+							mold="select" tabindex="8">
+							<template name="model">
+								<listitem label="@load(each)"
+									value="@load(each)" />
+							</template>
+
+
+						</listbox>
+					</hbox>
+
+				</row>
+
+
+			</rows>
+		</grid>
+
+		<hbox>
+
+			<button label="save" onClick="@command('save')" />
+			<button label="cancel" onClick="@command('cancel')" />
+		</hbox>
+
+	</window>
+	</window>
+</zk>

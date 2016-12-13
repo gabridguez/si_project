@@ -1,0 +1,47 @@
+<zk>
+	<menubar>
+		<menu label="Swimmers">
+			<menupopup>
+				<menuitem label="Edit Swimmers" href="swimmers.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+
+		<menu label="Clubs">
+			<menupopup>
+				<menuitem label="Edit Clubs..." href="club.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		
+		<menu label="Events">
+			<menupopup>
+				<menuitem label="Edit Events..." href="events.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		
+		<menu label="Marks">
+			<menupopup>
+				<menuitem label="Edit Marks..." href="marks.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		
+		<menu label="Swimming pools">
+			<menupopup>
+				<menuitem label="Edit Swimming pools..." href="swimming_pools.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		
+		<menu label="Users">
+			<menupopup>
+				<menuitem label="Edit Users..." href="users.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		
+		
+	</menubar>
+</zk>

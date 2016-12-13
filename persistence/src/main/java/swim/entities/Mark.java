@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-class Mark {
+public class Mark {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

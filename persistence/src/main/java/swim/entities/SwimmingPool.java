@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Set;
 
 @Entity
-class SwimmingPool {
+public class SwimmingPool {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -9,7 +9,7 @@
 				<row>
 
 					Name:
-					<textbox value="@bind(vm.currentSwimmer.name)">
+					<textbox value="@load(vm.currentSwimmer.name) @save(vm.currentSwimmer.name, before='updateSwimmer')">
 					</textbox>
 
 				</row>

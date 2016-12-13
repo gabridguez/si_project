@@ -7,7 +7,9 @@ import swim.daos.ClubDAO;
 //import swim.entities.TransactionUtils;
 import swim.daos.SwimmerDAO;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 //import java.util.HashSet;
 import java.util.Set;
 
@@ -31,17 +33,16 @@ public class SwimmersVM {
 
 	//private DateConverter dateConverter;
 
-	private Swimmer newSwimmer;
 
-	private Swimmer currentSwimmer;
+
+	private Swimmer currentSwimmer=null;
 
 	private SwimmerDAO sDAO;
 	
 	private ClubDAO cDAO;
 
 	// modal dialog to edit swimmer
-	@Wire
-	Window modalDialog;
+	
 
 	
 	
@@ -52,8 +53,8 @@ public class SwimmersVM {
 		//this.dateConverter = new DateConverter();
 		this.sDAO = new SwimmerDAO(DesktopEntityManagerManager.getDesktopEntityManager());
 		this.cDAO = new ClubDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-		this.swimmers = (Set<Swimmer>) sDAO.findAllSwimmers();
-		this.clubs= new ListModelList<>(cDAO.findAllClubs()); //(ListModelList)(Set<Club>) cDAO.findAllClubs();
+		this.swimmers = (Set<Swimmer>) sDAO.findAll();
+		this.clubs= new ListModelList<>(cDAO.findAll()); //(ListModelList)(Set<Club>) cDAO.findAllClubs();
 
 	}
 
@@ -65,27 +66,19 @@ public class SwimmersVM {
 		return clubs;
 	}
 
-	public void setClubs(ListModelList clubs) {
-		this.clubs = clubs;
-	}
+	
 
 	public Set<Swimmer> getSwimmers() {
-		return (Set<Swimmer>) sDAO.findAllSwimmers();
+		return (Set<Swimmer>) sDAO.findAll();
 	}
 
-	public Swimmer getNewSwimmer() {
-		return newSwimmer;
-	}
-
-	public void setNewSwimmer(Swimmer newSwimmer) {
-		this.newSwimmer = newSwimmer;
-	}
 
 	public int getSwimmersCount() {
 		return this.getSwimmers().size();
 	}
 
 	public Swimmer getCurrentSwimmer() {
+		//System.out.println(this);
 		return currentSwimmer;
 	}
 
@@ -96,14 +89,15 @@ public class SwimmersVM {
 	@Command
 	@NotifyChange("swimmers")
 	public void removeSwimmer(@BindingParam("swimmer") Swimmer swimmer) {
-		sDAO.removeSwimmer(swimmer.getId());
+		sDAO.remove(swimmer.getId());
 		// this.swimmers=(Set<Swimmer>) sDAO.findAllSwimmers();
 		UserInterfaceUtils.showNotification("Removed.", "Removing...");
 	}
 
-	@Command
+	/*@Command
 	@NotifyChange("currentSwimmer")
 	public void editSwimmer(@BindingParam("swimmer") Swimmer swimmer) {
+		System.out.println(this);
 		this.currentSwimmer = swimmer;
 		System.out.println("EDIT SWIMMER "+swimmer.getName()+"nombre current: "+this.currentSwimmer.getName());
 		
@@ -119,7 +113,7 @@ public class SwimmersVM {
 		// this.swimmers=(Set<Swimmer>) sDAO.findAllSwimmers();
 		UserInterfaceUtils.showNotification("Swimmer " + this.newSwimmer.getName() + " was edited.", "Editing...");
 		this.currentSwimmer = null;
-		modalDialog.detach();
+		//modalDialog.detach();
 	}
 
 	@Command
@@ -129,11 +123,44 @@ public class SwimmersVM {
 		// this.swimmers=(Set<Swimmer>) sDAO.findAllSwimmers();
 		UserInterfaceUtils.showNotification("Swimmer " + this.newSwimmer.getName() + " was created.", "Creating...");
 		initNewSwimmer();
+	}*/
+
+	@Command
+	@NotifyChange("currentSwimmer")
+	public void newSwimmer() {
+		this.currentSwimmer = new Swimmer();
+	}
+	@Command
+	@NotifyChange("currentSwimmer")
+	public void cancel() {
+		this.currentSwimmer = null;
+	}
+	
+	@Command
+	@NotifyChange("currentSwimmer")
+	public void editSwimmer(@BindingParam("swimmer") Swimmer swimmer) {
+		this.currentSwimmer = swimmer;
+	}
+	
+	@Command
+	@NotifyChange({"swimmers", "currentSwimmer"})
+	public void save() {
+		this.sDAO.create(this.currentSwimmer);
+		this.currentSwimmer = null;
 	}
 
-	public void initNewSwimmer() {
-		this.newSwimmer = new Swimmer();
-
+	
+	public List<Boolean> getPossibleSex() {
+		return Arrays.asList(true, false);
+	}
+	
+	public List<Integer> getPossibleYears() {
+		List<Integer> years = new ArrayList<>();
+		for (int i = 1950; i<2025; i++) {
+			years.add(i);
+		}
+		return years;
 	}
 
 }
+  

@@ -26,7 +26,7 @@
     	public ClubVM(){
     		this.dateConverter=new DateConverter();
     		this.clubDAO=new ClubDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-    		this.clubs=(Set<Club>) clubDAO.findAllClubs();
+    		this.clubs=(Set<Club>) clubDAO.findAll();
 
     	}
 
@@ -54,15 +54,15 @@
     	@Command
     	@NotifyChange("clubs")
     	public void removeClub(@BindingParam("club") Club club){
-    		clubDAO.removeClub(club.getId());
-    		this.clubs=(Set<Club>) clubDAO.findAllClubs();
+    		clubDAO.remove(club.getId());
+    		this.clubs=(Set<Club>) clubDAO.findAll();
     	}
 
     	@Command
     	@NotifyChange("clubs")
     	public void submitClub() {
-    		this.clubDAO.createClub(this.club);
-    		this.clubs=(Set<Club>) clubDAO.findAllClubs();
+    		this.clubDAO.create(this.club);
+    		this.clubs=(Set<Club>) clubDAO.findAll();
     		initNewClub();
     	}
 
