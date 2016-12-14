@@ -1,0 +1,42 @@
+<window id="modalDialog" title="Edit club" border="normal"
+        width="460px" apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('jag.webapp.viewmodels.clubVM')"
+        position="center,center" closable="true"
+        action="show: slideDown;hide: slideUp">
+    <vlayout>
+        <grid>
+            <rows>
+                <row>
+
+                    Name:
+                    <textbox value="@load(vm.currentClub.name) @save(vm.currentSwimmer.name, before='updateSwimmer')">
+                    </textbox>
+
+                </row>
+                <row>
+
+                    City:
+                    <textbox value="@bind(vm.currentSwimmer.city)">
+                    </textbox>
+
+                </row>
+                <row>
+
+                   Foundation year:
+                    <textbox value="@bind(vm.currentSwimmer.license)">
+                    </textbox>
+
+                </row>
+
+                <row>
+                    <button onClick="@command('updateClub')"
+                            label="save"
+                            disabled="@bind(vm.currentClub.name eq '')">
+                    </button>
+
+                </row>
+            </rows>
+        </grid>
+
+    </vlayout>
+</window>
