@@ -11,7 +11,7 @@ protected static Connection jdbcConnection;
 	
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/swim";
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/swimTest";
 	
 	private static final String USER = "siuser";
 	

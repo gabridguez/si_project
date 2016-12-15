@@ -24,4 +24,32 @@
 -->
 </properties>
 </persistence-unit>
+<persistence-unit name="swimTest-database" transaction-type="RESOURCE_LOCAL">
+<class>jag.swim.persistence.Club</class>
+<!--class>sing.proyectosi.Department</class>
+<class>sing.proyectosi.Project</class>
+<class>sing.proyectosi.Address</class-->
+<properties>
+<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+<!-- create database swimTest;
+
+grant all privileges on swimTest.* to siuser@localhost identified by "sipass"; -->
+<property name="javax.persistence.jdbc.user" value="siuser"/>
+<property name="javax.persistence.jdbc.password" value="sipass"/>
+<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swimTest"/>
+<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+<property name="hibernate.max_fetch_depth" value="3"/>
+<property name="hibernate.hbm2ddl.auto" value="create-drop"/><!-- create-drop -->
+<property name="hibernate.show_sql" value="true"/>
+<property name="hibernate.format_sql" value="true"/>
+<property name="hibernate.use_sql_comments" value="true"/>
+<property name="hibernate.connection.autocommit" value="false"/>
+<!--
+ alternatively to <class> and <property> declarations, you can use a regular hibernate.cfg.xml file 
+-->
+<!--
+ property name="hibernate.ejb.cfgfile" value="/org/hibernate/ejb/test/hibernate.cfg.xml"/ 
+-->
+</properties>
+</persistence-unit>
 </persistence>

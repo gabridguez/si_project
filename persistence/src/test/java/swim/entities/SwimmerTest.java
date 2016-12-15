@@ -20,7 +20,7 @@ public class SwimmerTest extends SQLBasedTest{
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		emf = Persistence.createEntityManagerFactory("swim-database");
+		emf = Persistence.createEntityManagerFactory("swimTest-database");
 	}	
 	
 	@AfterClass

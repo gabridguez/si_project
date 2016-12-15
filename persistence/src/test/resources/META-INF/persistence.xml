@@ -1,17 +1,20 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
-<persistence-unit name="swim-database" transaction-type="RESOURCE_LOCAL">
+<persistence-unit name="swimTest-database" transaction-type="RESOURCE_LOCAL">
 <class>jag.swim.persistence.Club</class>
 <!--class>sing.proyectosi.Department</class>
 <class>sing.proyectosi.Project</class>
 <class>sing.proyectosi.Address</class-->
 <properties>
 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+<!-- create database swimTest;
+
+grant all privileges on swimTest.* to siuser@localhost identified by "sipass"; -->
 <property name="javax.persistence.jdbc.user" value="siuser"/>
 <property name="javax.persistence.jdbc.password" value="sipass"/>
-<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swim"/>
+<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swimTest"/>
 <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
 <property name="hibernate.max_fetch_depth" value="3"/>
-<property name="hibernate.hbm2ddl.auto" value="create"/><!-- create-drop -->
+<property name="hibernate.hbm2ddl.auto" value="create-drop"/><!-- create-drop -->
 <property name="hibernate.show_sql" value="true"/>
 <property name="hibernate.format_sql" value="true"/>
 <property name="hibernate.use_sql_comments" value="true"/>
