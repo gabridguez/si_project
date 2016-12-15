@@ -12,9 +12,6 @@ import java.sql.Statement;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Andoni Da Silva on 14/11/2016.
- */
 public class SwimmingPoolTest extends SQLBasedTest{
 
     private static EntityManagerFactory emf;
@@ -31,8 +28,6 @@ public class SwimmingPoolTest extends SQLBasedTest{
 
     @Test
     public void testCreatePool() throws SQLException {
-        //EntityManager em = emf.createEntityManager();
-        //EntityTransaction tx = null;
         final SwimmingPool pool = new SwimmingPool();
 
         swim.entities.TransactionUtils.doTransaction(emf, em ->{
@@ -42,8 +37,6 @@ public class SwimmingPoolTest extends SQLBasedTest{
                     em.persist(pool);
                 }
         );
-
-        //check
 
         Statement statement = jdbcConnection.createStatement();
         ResultSet rs = statement.executeQuery(
@@ -72,7 +65,6 @@ public class SwimmingPoolTest extends SQLBasedTest{
 
        SwimmingPool pool= emf.createEntityManager().find(SwimmingPool.class, insertedId);
         swim.entities.TransactionUtils.doTransaction(emf, em->{
-            //Club club=em.find(Club.class, insertedId);
             em.remove(em.contains(pool) ? pool : em.merge(pool));
         });
 

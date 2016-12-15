@@ -1,8 +1,8 @@
 <zk>
-    <window title="Clubs" border="normal"
-            apply="org.zkoss.bind.BindComposer"
-            viewModel="@id('vm') @init('jag.webapp.viewmodels.ClubVM')">
-       <vbox>
+	<window title="Clubs" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.ClubVM')">
+		<vbox>
 			<groupbox mold="3d" closable="false">
 
 				<caption label="Clubs list">
@@ -22,13 +22,15 @@
 							<listcell>
 								<label value="@load(each.name)"></label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.city)"></label>
 							</listcell>
-							
+
 							<listcell>
-								<label value="@load(each.foundationYear)"></label>
+								<label
+									value="@load(each.foundationYear)">
+								</label>
 							</listcell>
 
 							<listcell>
@@ -45,47 +47,47 @@
 
 			</groupbox>
 		</vbox>
-	
-        <window title="Editor" border="normal" mode="modal"
-                visible="@load(vm.currentClub ne null)">
+
+		<window title="Editor" border="normal" mode="modal"
+			visible="@load(vm.currentClub ne null)">
 
 
-            <grid>
-                <rows>
-                    <row>
+			<grid>
+				<rows>
+					<row>
 
-                        Name:
-                        <textbox
-                                value="@load(vm.currentClub.name) @save(vm.currentClub.name, before='save')"/>
-
-
-                    </row>
-                    <row>
-
-                        City:
-                        <textbox
-                                value="@load(vm.currentClub.city) @save(vm.currentClub.city, before='save')"/>
+						Name:
+						<textbox
+							value="@load(vm.currentClub.name) @save(vm.currentClub.name, before='save')" />
 
 
-                    </row>
-                    <row>
+					</row>
+					<row>
 
-                        Foundation year:
-                        <textbox
-                                value="@load(vm.currentClub.foundationYear) @save(vm.currentClub.foundationYear, before='save')"/>
+						City:
+						<textbox
+							value="@load(vm.currentClub.city) @save(vm.currentClub.city, before='save')" />
 
 
-                    </row>
-                    </rows>
-            </grid>
+					</row>
+					<row>
 
-            <hbox>
+						Foundation year:
+						<textbox
+							value="@load(vm.currentClub.foundationYear) @save(vm.currentClub.foundationYear, before='save')" />
 
-                <button label="save" onClick="@command('save')" />
-                <button label="cancel" onClick="@command('cancel')" />
-            </hbox>
 
-        </window>
+					</row>
+				</rows>
+			</grid>
 
-    </window>
+			<hbox>
+
+				<button label="save" onClick="@command('save')" />
+				<button label="cancel" onClick="@command('cancel')" />
+			</hbox>
+
+		</window>
+
+	</window>
 </zk>

@@ -9,7 +9,8 @@
 				<row>
 
 					Name:
-					<textbox value="@load(vm.currentSwimmer.name) @save(vm.currentSwimmer.name, before='updateSwimmer')">
+					<textbox
+						value="@load(vm.currentSwimmer.name) @save(vm.currentSwimmer.name, before='updateSwimmer')">
 					</textbox>
 
 				</row>
@@ -28,16 +29,15 @@
 
 				</row>
 				<row>
-										Club:
-										<combobox id="clubsCombobox"
-										selectedItem="@bind(vm.currentSwimmer.club)"
-											model="${vm.clubs}" autodrop="true">
-											<template name="model">
-												<comboitem
-													label="${each.name}" />
-											</template>
-										</combobox>
-									</row>
+					Club:
+					<combobox id="clubsCombobox"
+						selectedItem="@bind(vm.currentSwimmer.club)" model="${vm.clubs}"
+						autodrop="true">
+						<template name="model">
+							<comboitem label="${each.name}" />
+						</template>
+					</combobox>
+				</row>
 				<row>
 
 
@@ -47,7 +47,7 @@
 						<listbox
 							selectedItem="@bind(vm.currentSwimmer.sex)" mold="select"
 							tabindex="8">
-							
+
 							<listitem label="M" value="true" />
 							<listitem label="F" value="false" />
 
@@ -61,7 +61,7 @@
 					Birth Year:
 					<listbox
 						selectedItem="@bind(vm.currentSwimmer.birthyear)" mold="select">
-						
+
 						<listitem label="1950" value="1950" />
 						<listitem label="1951" value="1951" />
 						<listitem label="1952" value="1952" />

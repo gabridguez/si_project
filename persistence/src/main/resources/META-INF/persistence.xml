@@ -25,7 +25,7 @@
 </properties>
 </persistence-unit>
 <persistence-unit name="swimTest-database" transaction-type="RESOURCE_LOCAL">
-<class>jag.swim.persistence.Club</class>
+<!--  class>jag.swim.persistence.Club</class>-->
 <!--class>sing.proyectosi.Department</class>
 <class>sing.proyectosi.Project</class>
 <class>sing.proyectosi.Address</class-->

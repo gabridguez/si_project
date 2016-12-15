@@ -13,35 +13,36 @@
 				</menuitem>
 			</menupopup>
 		</menu>
-		
+
 		<menu label="Events">
 			<menupopup>
 				<menuitem label="Edit Events..." href="events.zul">
 				</menuitem>
 			</menupopup>
 		</menu>
-		
+
 		<menu label="Marks">
 			<menupopup>
 				<menuitem label="Edit Marks..." href="marks.zul">
 				</menuitem>
 			</menupopup>
 		</menu>
-		
+
 		<menu label="Swimming pools">
 			<menupopup>
-				<menuitem label="Edit Swimming pools..." href="swimming_pools.zul">
+				<menuitem label="Edit Swimming pools..."
+					href="swimming_pools.zul">
 				</menuitem>
 			</menupopup>
 		</menu>
-		
+
 		<menu label="Users">
 			<menupopup>
 				<menuitem label="Edit Users..." href="users.zul">
 				</menuitem>
 			</menupopup>
 		</menu>
-		
-		
+
+
 	</menubar>
 </zk>

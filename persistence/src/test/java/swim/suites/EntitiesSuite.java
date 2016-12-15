@@ -13,7 +13,6 @@ import swim.entities.UserTest;
 
 
 @SuiteClasses({
-	
 	ClubTest.class,
 	MarkTest.class,
 	SwimmerTest.class,

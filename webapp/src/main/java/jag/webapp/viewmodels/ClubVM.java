@@ -1,16 +1,11 @@
 package jag.webapp.viewmodels;
 
 import swim.entities.Club;
-import swim.entities.Swimmer;
 import swim.daos.ClubDAO;
-
-import java.util.HashSet;
 import java.util.Set;
-
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
-
 import jag.webapp.utils.DateConverter;
 import jag.webapp.utils.DesktopEntityManagerManager;
 import jag.webapp.utils.UserInterfaceUtils;

@@ -11,31 +11,30 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Event {
-	
-	public enum strokes{
-		BUTTERFLY,CRAWL,BREASTROKE,BACKSTROKE
+
+	public enum strokes {
+		BUTTERFLY, CRAWL, BREASTROKE, BACKSTROKE
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	private String name;
-	
-	private int poolSize;
-	
-	private boolean chrono; //true==electronic
-	
-	private int meters;
-	
-	private strokes stroke; 
 
-	@OneToMany(mappedBy="event")
+	private String name;
+
+	private int poolSize;
+
+	private boolean chrono; // true==electronic
+
+	private int meters;
+
+	private strokes stroke;
+
+	@OneToMany(mappedBy = "event")
 	private Set<Mark> marks;
-	
+
 	private boolean lap;
 
-	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
@@ -96,18 +95,19 @@ public class Event {
 		return id;
 	}
 
-	public void addMark(Mark mark){
+	public void addMark(Mark mark) {
 		mark.setEvent(this);
 	}
-	public void removeMark(Mark mark){
+
+	public void removeMark(Mark mark) {
 		mark.setEvent(null);
 	}
 
-	void internalRemoveMark(Mark mark){
+	void internalRemoveMark(Mark mark) {
 		this.marks.remove(mark);
 	}
 
-	void internalAddMark(Mark mark){
+	void internalAddMark(Mark mark) {
 		this.marks.add(mark);
 	}
 }

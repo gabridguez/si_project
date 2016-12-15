@@ -24,30 +24,36 @@
 					<template name="model">
 						<listitem>
 							<listcell>
-								<label value="@load(each.mark) @converter(vm.markConverter, format='default')"></label>
+								<label
+									value="@load(each.mark) @converter(vm.markConverter, format='default')">
+								</label>
 							</listcell>
-							
+
 							<listcell>
-								<label value="@load(each.swimmer.name)"></label>
+								<label
+									value="@load(each.swimmer.name)">
+								</label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.event.name)"></label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.date)"></label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.club.name)"></label>
 							</listcell>
-							
+
 							<listcell>
-								<label value="@load(each.swimmingPool.name)"></label>
+								<label
+									value="@load(each.swimmingPool.name)">
+								</label>
 							</listcell>
-							
-							
+
+
 							<listcell>
 								<button label="delete"
 									onClick="@command('removeMark', mark=each)" />
@@ -62,87 +68,88 @@
 
 			</groupbox>
 		</vbox>
-	
-
-	<window title="marks Editor" border="normal" mode="modal"
-		visible="@load(vm.currentMark ne null)">
-		
-
-		<grid>
-			<rows>
-			<row>
 
 
-					Mark:
-					<textbox
-						value="@load(vm.currentMark.mark) @save(vm.currentMark.mark, before='save') @converter(vm.markConverter, format='default')"/>
-					
-
-				</row>
-				<row>
-
-					Swimmer:
-					<combobox id="swimmersCombobox"
-						selectedItem="@load(vm.currentMark.swimmer) @save(vm.currentMark.swimmer, before='save')"
-						model="${vm.swimmers}" autodrop="true">
-						<template name="model">
-							<comboitem label="${each.name}" />
-						</template>
-					</combobox>
-
-				</row>
-				<row>
-
-					Event:
-					<combobox id="eventsCombobox"
-						selectedItem="@load(vm.currentMark.event) @save(vm.currentMark.event, before='save')"
-						model="${vm.events}" autodrop="true">
-						<template name="model">
-							<comboitem label="${each.name}" />
-						</template>
-					</combobox>
-
-				</row>
-				<row>
-
-					Date:
-					<datebox  cols="12" format="short " value="@load(vm.currentMark.date) @save(vm.currentMark.date, before='save') @converter(vm.dateConverter, format='default')" />
-
-				</row>
-				
-				<row>
-					Club:
-					<combobox id="clubsCombobox"
-						selectedItem="@load(vm.currentMark.club) @save(vm.currentMark.club, before='save')"
-						model="${vm.clubs}" autodrop="true">
-						<template name="model">
-							<comboitem label="${each.name}" />
-						</template>
-					</combobox>
-				</row>
-				<row>
-
-					Swimming Pool:
-					<combobox id="swimmingPoolsCombobox"
-						selectedItem="@load(vm.currentMark.swimmingPool) @save(vm.currentMark.swimmingPool, before='save')"
-						model="${vm.swimmingPools}" autodrop="true">
-						<template name="model">
-							<comboitem label="${each.name}" />
-						</template>
-					</combobox>
-
-				</row>
+		<window title="marks Editor" border="normal" mode="modal"
+			visible="@load(vm.currentMark ne null)">
 
 
-			</rows>
-		</grid>
+			<grid>
+				<rows>
+					<row>
 
-		<hbox>
 
-			<button label="save" onClick="@command('save')" />
-			<button label="cancel" onClick="@command('cancel')" />
-		</hbox>
+						Mark:
+						<textbox
+							value="@load(vm.currentMark.mark) @save(vm.currentMark.mark, before='save') @converter(vm.markConverter, format='default')" />
 
-	</window>
+
+					</row>
+					<row>
+
+						Swimmer:
+						<combobox id="swimmersCombobox"
+							selectedItem="@load(vm.currentMark.swimmer) @save(vm.currentMark.swimmer, before='save')"
+							model="${vm.swimmers}" autodrop="true">
+							<template name="model">
+								<comboitem label="${each.name}" />
+							</template>
+						</combobox>
+
+					</row>
+					<row>
+
+						Event:
+						<combobox id="eventsCombobox"
+							selectedItem="@load(vm.currentMark.event) @save(vm.currentMark.event, before='save')"
+							model="${vm.events}" autodrop="true">
+							<template name="model">
+								<comboitem label="${each.name}" />
+							</template>
+						</combobox>
+
+					</row>
+					<row>
+
+						Date:
+						<datebox cols="12" format="short "
+							value="@load(vm.currentMark.date) @save(vm.currentMark.date, before='save') @converter(vm.dateConverter, format='default')" />
+
+					</row>
+
+					<row>
+						Club:
+						<combobox id="clubsCombobox"
+							selectedItem="@load(vm.currentMark.club) @save(vm.currentMark.club, before='save')"
+							model="${vm.clubs}" autodrop="true">
+							<template name="model">
+								<comboitem label="${each.name}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+
+						Swimming Pool:
+						<combobox id="swimmingPoolsCombobox"
+							selectedItem="@load(vm.currentMark.swimmingPool) @save(vm.currentMark.swimmingPool, before='save')"
+							model="${vm.swimmingPools}" autodrop="true">
+							<template name="model">
+								<comboitem label="${each.name}" />
+							</template>
+						</combobox>
+
+					</row>
+
+
+				</rows>
+			</grid>
+
+			<hbox>
+
+				<button label="save" onClick="@command('save')" />
+				<button label="cancel" onClick="@command('cancel')" />
+			</hbox>
+
+		</window>
 	</window>
 </zk>

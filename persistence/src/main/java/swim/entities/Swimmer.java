@@ -1,35 +1,32 @@
 package swim.entities;
 
 import javax.persistence.*;
-
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
 @Entity
-public class Swimmer implements Serializable{
+public class Swimmer {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String surname;
-	
+
 	private int birthyear;
-	
+
 	private boolean sex;
-	
+
 	private String license;
 
-	@OneToMany(mappedBy="swimmer")
+	@OneToMany(mappedBy = "swimmer")
 	private Set<Mark> marks;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Club club;
-	
-	
+
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
@@ -78,7 +75,7 @@ public class Swimmer implements Serializable{
 		return club;
 	}
 
-	public void addMark(Mark mark){
+	public void addMark(Mark mark) {
 		mark.setSwimmer(this);
 	}
 
@@ -86,20 +83,20 @@ public class Swimmer implements Serializable{
 		return id;
 	}
 
-	void internalRemoveMark(Mark mark){
+	void internalRemoveMark(Mark mark) {
 		this.marks.remove(mark);
 	}
 
-	void internalAddMark(Mark mark){
+	void internalAddMark(Mark mark) {
 		this.marks.add(mark);
 	}
 
-	public void setClub(Club e){
-		if(this.club!=null){
+	public void setClub(Club e) {
+		if (this.club != null) {
 			this.club.internalRemoveSwimmer(this);
 		}
-		this.club=e;
-		if(e!=null){
+		this.club = e;
+		if (e != null) {
 			e.internalAddSwimmer(this);
 		}
 	}

@@ -21,10 +21,8 @@ protected static Connection jdbcConnection;
 		try {
 			jdbcConnection=createConnection();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException(e);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException(e);
 		}
 	}
@@ -39,16 +37,14 @@ protected static Connection jdbcConnection;
 		try {
 			jdbcConnection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		jdbcConnection = createConnection();
 	}
-	
+
 	public int getLastInsertedId(Statement statement) throws SQLException {
 		ResultSet rs = statement.getGeneratedKeys();
 		rs.next();
 		return rs.getInt(1);
 	}
-	
 }

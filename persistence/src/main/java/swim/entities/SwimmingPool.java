@@ -8,22 +8,21 @@ import java.util.Set;
 public class SwimmingPool {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String address;
-	
+
 	private int size;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Club club;
 
-	@OneToMany(mappedBy="swimmingPool")
+	@OneToMany(mappedBy = "swimmingPool")
 	private Set<Mark> marks;
 
-	
 	public Set<Mark> getMarks() {
 		return Collections.unmodifiableSet(marks);
 	}
@@ -56,31 +55,30 @@ public class SwimmingPool {
 		return club;
 	}
 
-
 	public int getId() {
 		return id;
 	}
 
-	void internalRemoveMark(Mark mark){
+	void internalRemoveMark(Mark mark) {
 		this.marks.remove(mark);
 	}
 
-	void internalAddMark(Mark mark){
+	void internalAddMark(Mark mark) {
 		this.marks.add(mark);
 	}
 
-	public void addMark(Mark mark){
+	public void addMark(Mark mark) {
 		mark.setSwimmingPool(this);
 	}
 
-	public void setClub(Club e){
-        if(this.club!=null){
-            this.club.internalRemovePool(this);
-        }
-        this.club=e;
-        if(e!=null){
-            e.internalAddPool(this);
-        }
-    }
-	
+	public void setClub(Club e) {
+		if (this.club != null) {
+			this.club.internalRemovePool(this);
+		}
+		this.club = e;
+		if (e != null) {
+			e.internalAddPool(this);
+		}
+	}
+
 }

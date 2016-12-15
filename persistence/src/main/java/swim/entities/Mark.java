@@ -13,24 +13,24 @@ import javax.persistence.ManyToOne;
 public class Mark {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private long mark;
 
-	//el atributo es el del lado one
-	@ManyToOne(fetch=FetchType.LAZY)
+	// el atributo es el del lado one
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Event event;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private SwimmingPool swimmingPool;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Swimmer swimmer;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Club club;
-	
+
 	private LocalDate date;
 
 	public long getMark() {
@@ -69,43 +69,43 @@ public class Mark {
 		return id;
 	}
 
-	public void setEvent(Event e){
-		if(this.event!=null){
+	public void setEvent(Event e) {
+		if (this.event != null) {
 			this.event.internalRemoveMark(this);
 		}
-		this.event=e;
-		if(e!=null){
+		this.event = e;
+		if (e != null) {
 			e.internalAddMark(this);
 		}
 	}
 
-	public void setSwimmingPool(SwimmingPool e){
-		if(this.swimmingPool!=null){
+	public void setSwimmingPool(SwimmingPool e) {
+		if (this.swimmingPool != null) {
 			this.swimmingPool.internalRemoveMark(this);
 		}
-		this.swimmingPool=e;
-		if(e!=null){
+		this.swimmingPool = e;
+		if (e != null) {
 			e.internalAddMark(this);
 		}
 	}
 
-	public void setSwimmer(Swimmer e){
-		if(this.swimmer!=null){
+	public void setSwimmer(Swimmer e) {
+		if (this.swimmer != null) {
 			this.swimmer.internalRemoveMark(this);
 		}
-		this.swimmer=e;
-		if(e!=null){
+		this.swimmer = e;
+		if (e != null) {
 			e.internalAddMark(this);
 		}
 	}
 
-	public void setClub(Club e){
-		if(this.club!=null){
+	public void setClub(Club e) {
+		if (this.club != null) {
 			this.club.internalRemoveMark(this);
 		}
-		this.club=e;
-		if(e!=null){
+		this.club = e;
+		if (e != null) {
 			e.internalAddMark(this);
 		}
-	}	
+	}
 }

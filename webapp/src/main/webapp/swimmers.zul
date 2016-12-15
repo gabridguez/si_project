@@ -26,28 +26,30 @@
 							<listcell>
 								<label value="@load(each.license)"></label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.name)"></label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.surname)"></label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.birthyear)"></label>
 							</listcell>
-							
+
 							<listcell>
-								<label value="@load(each.sex?'M':'F')"></label>
+								<label
+									value="@load(each.sex?'M':'F')">
+								</label>
 							</listcell>
-							
+
 							<listcell>
 								<label value="@load(each.club.name)"></label>
 							</listcell>
-							
-							
+
+
 							<listcell>
 								<button label="delete"
 									onClick="@command('removeSwimmer', swimmer=each)" />
@@ -62,91 +64,91 @@
 
 			</groupbox>
 		</vbox>
-	
-
-	<window title="Swimmer Editor" border="normal" mode="modal"
-		visible="@load(vm.currentSwimmer ne null)">
-		
-
-		<grid>
-			<rows>
-				<row>
-
-					Name:
-					<textbox
-						value="@load(vm.currentSwimmer.name) @save(vm.currentSwimmer.name, before='save')"/>
-					
-
-				</row>
-				<row>
-
-					Surname:
-					<textbox
-						value="@load(vm.currentSwimmer.surname) @save(vm.currentSwimmer.surname, before='save')"/>
-					
-
-				</row>
-				<row>
-
-					License:
-					<textbox
-						value="@load(vm.currentSwimmer.license) @save(vm.currentSwimmer.license, before='save')"/>
-					
-
-				</row>
-				<row>
 
 
-					Sex:
-					<hbox align="center">
-						sex:
-						<listbox model="@bind(vm.possibleSex)"
-							selectedItem="@load(vm.currentSwimmer.sex) @save(vm.currentSwimmer.sex, before='save')"
-							mold="select" tabindex="8">
+		<window title="Swimmer Editor" border="normal" mode="modal"
+			visible="@load(vm.currentSwimmer ne null)">
+
+
+			<grid>
+				<rows>
+					<row>
+
+						Name:
+						<textbox
+							value="@load(vm.currentSwimmer.name) @save(vm.currentSwimmer.name, before='save')" />
+
+
+					</row>
+					<row>
+
+						Surname:
+						<textbox
+							value="@load(vm.currentSwimmer.surname) @save(vm.currentSwimmer.surname, before='save')" />
+
+
+					</row>
+					<row>
+
+						License:
+						<textbox
+							value="@load(vm.currentSwimmer.license) @save(vm.currentSwimmer.license, before='save')" />
+
+
+					</row>
+					<row>
+
+
+						Sex:
+						<hbox align="center">
+							sex:
+							<listbox model="@bind(vm.possibleSex)"
+								selectedItem="@load(vm.currentSwimmer.sex) @save(vm.currentSwimmer.sex, before='save')"
+								mold="select" tabindex="8">
+								<template name="model">
+									<listitem
+										label="@load(each?'M':'F')" value="@load(each)" />
+								</template>
+
+
+							</listbox>
+						</hbox>
+
+					</row>
+					<row>
+						Club:
+						<combobox id="clubsCombobox"
+							selectedItem="@load(vm.currentSwimmer.club) @save(vm.currentSwimmer.club, before='save')"
+							model="${vm.clubs}" autodrop="true">
 							<template name="model">
-								<listitem label="@load(each?'M':'F')"
-									value="@load(each)" />
+								<comboitem label="${each.name}" />
+							</template>
+						</combobox>
+					</row>
+					<row>
+
+						Birth Year:
+						<listbox model="@bind(vm.possibleYears)"
+							selectedItem="@load(vm.currentSwimmer.birthyear) @save(vm.currentSwimmer.birthyear, before='save')"
+							mold="select">
+							<template name="model">
+								<listitem label="@load(each)" />
 							</template>
 
-
 						</listbox>
-					</hbox>
 
-				</row>
-				<row>
-					Club:
-					<combobox id="clubsCombobox"
-						selectedItem="@load(vm.currentSwimmer.club) @save(vm.currentSwimmer.club, before='save')"
-						model="${vm.clubs}" autodrop="true">
-						<template name="model">
-							<comboitem label="${each.name}" />
-						</template>
-					</combobox>
-				</row>
-				<row>
-
-					Birth Year:
-					<listbox model="@bind(vm.possibleYears)"
-						selectedItem="@load(vm.currentSwimmer.birthyear) @save(vm.currentSwimmer.birthyear, before='save')"
-						mold="select">
-						<template name="model">
-							<listitem label="@load(each)" />
-						</template>
-
-					</listbox>
-
-				</row>
+					</row>
 
 
-			</rows>
-		</grid>
+				</rows>
+			</grid>
 
-		<hbox>
+			<hbox>
 
-			<button label="save" onClick="@command('save')" />
-			<button label="cancel" onClick="@command('cancel')" />
-		</hbox>
+				<button label="save" onClick="@command('save')" />
+				<button label="cancel" onClick="@command('cancel')" />
+			</hbox>
 
-	</window>
+		</window>
 	</window>
 </zk>
