@@ -1,4 +1,5 @@
 <zk>
+<include src="menu.zul" />
 	<window title="Clubs" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('jag.webapp.viewmodels.ClubVM')">

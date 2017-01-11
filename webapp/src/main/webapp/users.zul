@@ -1,0 +1,141 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Users" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.UserVM')">
+		<vbox>
+			<groupbox mold="3d" closable="false">
+
+				<caption label="Users list">
+					<button label="new User"
+						onClick="@command('newUser')" />
+				</caption>
+
+				<listbox model="@load(vm.users)">
+					<listhead>
+						<listheader label="id" />
+						<listheader label="Name" />
+						<listheader label="Email" />
+						<listheader label="Login" />
+						<listheader label="Type" />
+						<listheader label="Pass" />
+						<listheader label="Actions" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<label value="@load(each.id)"></label>
+							</listcell>
+
+							<listcell>
+								<label value="@load(each.name)"></label>
+							</listcell>
+
+							<listcell>
+								<label value="@load(each.email)"></label>
+							</listcell>
+
+							<listcell>
+								<label value="@load(each.login)"></label>
+							</listcell>
+
+							<listcell>
+								<label
+									value="@load(each.type)">
+								</label>
+							</listcell>
+
+							<listcell>
+								<label value="@load(each.pass)"></label>
+							</listcell>
+
+
+							<listcell>
+								<button label="delete"
+									onClick="@command('removeUser', user=each)" />
+								<button label="edit"
+									onClick="@command('editUser', user=each)" />
+
+							</listcell>
+						</listitem>
+					</template>
+
+				</listbox>
+
+			</groupbox>
+		</vbox>
+
+
+		<window title="User Editor" border="normal" mode="modal"
+			visible="@load(vm.currentUser ne null)">
+
+
+			<grid>
+				<rows>
+					<row>
+
+						Name:
+						<textbox
+							value="@load(vm.currentUser.name) @save(vm.currentUser.name, before='save')" />
+
+
+					</row>
+					<row>
+
+						Email:
+						<textbox
+							value="@load(vm.currentUser.email) @save(vm.currentUser.email, before='save')" />
+
+
+					</row>
+					<row>
+
+						Login:
+						<textbox
+							value="@load(vm.currentUser.login) @save(vm.currentUser.login, before='save')" />
+
+
+					</row>
+					<row>
+
+
+						Type:
+						<hbox align="center">
+							Type:
+							<listbox model="@bind(vm.possibleTypeUser)"
+								selectedItem="@load(vm.currentUser.type) @save(vm.currentUser.type, before='save')"
+								mold="select" tabindex="8">
+								<template name="model">
+									
+										<listitem label="@load(each)" />
+									
+								</template>
+
+
+							</listbox>
+						</hbox>
+
+					</row>
+					<row>
+
+						Pass:
+						<textbox
+							value="@load(vm.currentUser.pass) @save(vm.currentUser.pass, before='save')" />
+
+
+					</row>
+
+
+
+				</rows>
+			</grid>
+
+			<hbox>
+
+				<button label="save" onClick="@command('save')" />
+				<button label="cancel" onClick="@command('cancel')" />
+			</hbox>
+
+		</window>
+	</window>
+</zk>

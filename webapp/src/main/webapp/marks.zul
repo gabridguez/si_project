@@ -1,4 +1,5 @@
 <zk>
+
 	<include src="menu.zul" />
 	<window title="marks" border="normal"
 		apply="org.zkoss.bind.BindComposer"

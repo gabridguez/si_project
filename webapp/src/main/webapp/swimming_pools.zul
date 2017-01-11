@@ -1,0 +1,94 @@
+<zk>
+<include src="menu.zul" />
+	<window title="Swimming Pools" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('jag.webapp.viewmodels.SwimmingPoolVM')">
+		<vbox>
+			<groupbox mold="3d" closable="false">
+
+				<caption label="Swimming pool list">
+					<button label="new Swimming pool"
+						onClick="@command('newSwimmingPool')" />
+				</caption>
+
+				<listbox model="@load(vm.swimmingPools)">
+					<listhead>
+						<listheader label="Name" />
+						<listheader label="Address" />
+						<listheader label="Size" />
+						<listheader label="Actions" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<label value="@load(each.name)"></label>
+							</listcell>
+
+							<listcell>
+								<label value="@load(each.address)"></label>
+							</listcell>
+
+							<listcell>
+								<label
+									value="@load(each.size)">
+								</label>
+							</listcell>
+
+							<listcell>
+								<button label="delete"
+									onClick="@command('removeSwimmingPool', swimmingPool=each)" />
+								<button label="edit"
+									onClick="@command('editSwimmingPool', swimmingPool=each)" />
+
+							</listcell>
+						</listitem>
+					</template>
+
+				</listbox>
+
+			</groupbox>
+		</vbox>
+
+		<window title="Editor" border="normal" mode="modal"
+			visible="@load(vm.currentSwimmingPool ne null)">
+
+
+			<grid>
+				<rows>
+					<row>
+
+						Name:
+						<textbox
+							value="@load(vm.currentSwimmingPool.name) @save(vm.currentSwimmingPool.name, before='save')" />
+
+
+					</row>
+					<row>
+
+						Address:
+						<textbox
+							value="@load(vm.currentSwimmingPool.address) @save(vm.currentSwimmingPool.address, before='save')" />
+
+
+					</row>
+					<row>
+
+						Size:
+						<textbox
+							value="@load(vm.currentSwimmingPool.size) @save(vm.currentSwimmingPool.size, before='save')" />
+
+
+					</row>
+				</rows>
+			</grid>
+
+			<hbox>
+
+				<button label="save" onClick="@command('save')" />
+				<button label="cancel" onClick="@command('cancel')" />
+			</hbox>
+
+		</window>
+
+	</window>
+</zk>
