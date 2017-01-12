@@ -6,6 +6,9 @@ import swim.daos.UserDAO;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.RollbackException;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -15,7 +18,7 @@ import jag.webapp.utils.UserInterfaceUtils;
 
 public class UserVM {
 
-	private Set<User> users;
+//	private Set<User> users;
 
 	private User user;
 
@@ -26,7 +29,7 @@ public class UserVM {
 	public UserVM() {
 		
 		this.userDAO = new UserDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-		this.users = (Set<User>) userDAO.findAll();
+		//this.users = (Set<User>) userDAO.findAll();
 
 	}
 
@@ -40,9 +43,15 @@ public class UserVM {
 
 	@Command
 	@NotifyChange("users")
-	public void removeUser(@BindingParam("user") User user) {
-		userDAO.remove(user.getId());
-		UserInterfaceUtils.showNotification("Removed.", "Removing...");
+	public void removeUser(@BindingParam("user") User user) {	
+		try{
+			userDAO.remove(user.getId());
+			UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		}
+		catch (RollbackException e) {
+			
+			UserInterfaceUtils.showError("No se puede eliminar debido a una dependencia","Error.");
+		}
 	}
 
 	@Command
@@ -72,7 +81,7 @@ public class UserVM {
 	}
 
 	public Set<User> getUsers() {
-		return this.users;
+		return (Set<User>) userDAO.findAll();
 	}
 
 	public User getNewUser() {
@@ -96,7 +105,7 @@ public class UserVM {
 	@NotifyChange("users")
 	public void submitUser() {
 		this.userDAO.create(this.user);
-		this.users = (Set<User>) userDAO.findAll();
+	//	this.users = (Set<User>) userDAO.findAll();
 		initNewUser();
 	}
 

@@ -1,10 +1,14 @@
 package jag.webapp.viewmodels;
 
+import swim.entities.Swimmer;
 import swim.entities.SwimmingPool;
 
 import swim.daos.SwimmingPoolDAO;
 
 import java.util.Set;
+
+import javax.persistence.RollbackException;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -13,7 +17,7 @@ import jag.webapp.utils.UserInterfaceUtils;
 
 public class SwimmingPoolVM{
 
-	private Set<SwimmingPool> swimmingPools;
+	//private Set<SwimmingPool> swimmingPools;
 
 
 	private SwimmingPool swimmingPool;
@@ -25,7 +29,7 @@ public class SwimmingPoolVM{
 	public SwimmingPoolVM() {
 	
 		this.swimmingPoolDAO = new SwimmingPoolDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-		this.swimmingPools = (Set<SwimmingPool>) swimmingPoolDAO.findAll();
+		//this.swimmingPools = (Set<SwimmingPool>) swimmingPoolDAO.findAll();
 
 	}
 
@@ -40,8 +44,15 @@ public class SwimmingPoolVM{
 	@Command
 	@NotifyChange("swimmingPools")
 	public void removeSwimmingPool(@BindingParam("swimmingPool") SwimmingPool swimmingPool) {
-		swimmingPoolDAO.remove(swimmingPool.getId());
-		UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		
+		try{
+			swimmingPoolDAO.remove(swimmingPool.getId());
+			UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		}
+		catch (RollbackException e) {
+			
+			UserInterfaceUtils.showError("No se puede eliminar debido a una dependencia","Error.");
+		}
 	}
 
 	@Command
@@ -71,7 +82,7 @@ public class SwimmingPoolVM{
 
 
 	public Set<SwimmingPool> getSwimmingPools() {
-		return this.swimmingPools;
+		return (Set<SwimmingPool>) swimmingPoolDAO.findAll();
 	}
 
 	public SwimmingPool getNewSwimmingPool() {
@@ -90,7 +101,7 @@ public class SwimmingPoolVM{
 	@NotifyChange("swimmingPools")
 	public void submitSwimmingPool() {
 		this.swimmingPoolDAO.create(this.swimmingPool);
-		this.swimmingPools = (Set<SwimmingPool>) swimmingPoolDAO.findAll();
+	//	this.swimmingPools = (Set<SwimmingPool>) swimmingPoolDAO.findAll();
 		initNewSwimmingPool();
 	}
 

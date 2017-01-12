@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import javassist.bytecode.stackmap.BasicBlock.Catch;
+
 public class TransactionUtils {
 
 	public static void doTransaction(EntityManagerFactory emf, Transaction transaction) {
@@ -15,6 +17,7 @@ public class TransactionUtils {
 				tx.begin();
 				transaction.run(em);
 				tx.commit();
+				
 			} finally {
 				if (tx != null && tx.isActive()) {
 					tx.rollback();

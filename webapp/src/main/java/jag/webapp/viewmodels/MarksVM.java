@@ -8,6 +8,9 @@ import swim.daos.MarkDAO;
 import swim.daos.SwimmerDAO;
 import swim.daos.SwimmingPoolDAO;
 import java.util.Set;
+
+import javax.persistence.RollbackException;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -19,7 +22,7 @@ import jag.webapp.utils.UserInterfaceUtils;
 
 public class MarksVM {
 
-	private Set<Mark> marks;
+	//private Set<Mark> marks;
 
 	ListModelList swimmers;
 	ListModelList clubs;
@@ -46,12 +49,12 @@ public class MarksVM {
 		this.spDAO = new SwimmingPoolDAO(DesktopEntityManagerManager.getDesktopEntityManager());
 		this.eDAO = new EventDAO(DesktopEntityManagerManager.getDesktopEntityManager());
 
-		this.marks = (Set<Mark>) mDAO.findAll();
+	/*	this.marks = (Set<Mark>) mDAO.findAll(); */
 		this.swimmers = new ListModelList<>(sDAO.findAll());
 		this.clubs = new ListModelList<>(cDAO.findAll());
 		this.swimmingPools = new ListModelList<>(spDAO.findAll());
 		this.events = new ListModelList<>(eDAO.findAll());
-
+	 
 	}
 
 	public DateConverter getDateConverter() {
@@ -63,13 +66,13 @@ public class MarksVM {
 	}
 
 	public Set<Mark> getMarks() {
-		return marks;
+		return (Set<Mark>) mDAO.findAll();
 	}
 
-	public void setMarks(Set<Mark> Marks) {
+/*	public void setMarks(Set<Mark> Marks) {
 		this.marks = Marks;
 	}
-
+*/
 	public Mark getCurrentMark() {
 		return currentMark;
 	}
@@ -96,9 +99,16 @@ public class MarksVM {
 
 	@Command
 	@NotifyChange("marks")
-	public void removeMark(@BindingParam("mark") Event mark) {
-		mDAO.remove(mark.getId());
-		UserInterfaceUtils.showNotification("Removed.", "Removing...");
+	public void removeMark(@BindingParam("mark") Mark mark) {
+		
+		try{
+			mDAO.remove(mark.getId());
+			UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		}
+		catch (RollbackException e) {
+			
+			UserInterfaceUtils.showError("No se puede eliminar debido a una dependencia","Error.");
+		}
 	}
 
 	@Command

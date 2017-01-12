@@ -3,6 +3,10 @@ package jag.webapp.viewmodels;
 import swim.entities.Club;
 import swim.daos.ClubDAO;
 import java.util.Set;
+
+import javax.persistence.RollbackException;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -12,7 +16,7 @@ import jag.webapp.utils.UserInterfaceUtils;
 
 public class ClubVM {
 
-	private Set<Club> clubs;
+	//private Set<Club> clubs;
 
 	private DateConverter dateConverter;
 
@@ -25,7 +29,7 @@ public class ClubVM {
 	public ClubVM() {
 		this.dateConverter = new DateConverter();
 		this.clubDAO = new ClubDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-		this.clubs = (Set<Club>) clubDAO.findAll();
+		//this.clubs = (Set<Club>) clubDAO.findAll();
 
 	}
 
@@ -38,10 +42,17 @@ public class ClubVM {
 	}
 
 	@Command
-	@NotifyChange("Clubs")
+	@NotifyChange("clubs")
 	public void removeClub(@BindingParam("club") Club club) {
-		clubDAO.remove(club.getId());
-		UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		try{
+			clubDAO.remove(club.getId());
+			UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		}
+		catch (RollbackException e) {
+			
+			UserInterfaceUtils.showError("No se puede eliminar debido a una dependencia","Error.");
+		}
+		
 	}
 
 	@Command
@@ -63,18 +74,20 @@ public class ClubVM {
 	}
 
 	@Command
-	@NotifyChange({ "Clubs", "currentClub" })
+	@NotifyChange({ "clubs", "currentClub" })
 	public void save() {
 		this.clubDAO.create(this.currentClub);
 		this.currentClub = null;
 	}
+
+
 
 	public DateConverter getDateConverter() {
 		return dateConverter;
 	}
 
 	public Set<Club> getClubs() {
-		return this.clubs;
+		return (Set<Club>)clubDAO.findAll(); 
 	}
 
 	public Club getNewClub() {
@@ -89,14 +102,7 @@ public class ClubVM {
 		return this.getClubs().size();
 	}
 
-	@Command
-	@NotifyChange("clubs")
-	public void submitClub() {
-		this.clubDAO.create(this.club);
-		this.clubs = (Set<Club>) clubDAO.findAll();
-		initNewClub();
-	}
-
+	
 	public void initNewClub() {
 		this.club = new Club();
 

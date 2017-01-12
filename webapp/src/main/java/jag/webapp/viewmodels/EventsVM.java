@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.RollbackException;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -14,7 +17,7 @@ import jag.webapp.utils.UserInterfaceUtils;
 
 public class EventsVM {
 
-	private Set<Event> events;
+	//private Set<Event> events;
 
 	private Event currentEvent = null;
 
@@ -22,17 +25,17 @@ public class EventsVM {
 
 	public EventsVM() {
 		this.eDAO = new EventDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-		this.events = (Set<Event>) eDAO.findAll();
+		//this.events = (Set<Event>) eDAO.findAll();
 	}
 
 	public Set<Event> getEvents() {
-		return events;
+		return (Set<Event>) eDAO.findAll();
 	}
 
-	public void setEvents(Set<Event> events) {
+/*	public void setEvents(Set<Event> events) {
 		this.events = events;
 	}
-
+*/
 	public Event getCurrentEvent() {
 		return currentEvent;
 	}
@@ -44,8 +47,15 @@ public class EventsVM {
 	@Command
 	@NotifyChange("events")
 	public void removeEvent(@BindingParam("event") Event event) {
-		eDAO.remove(event.getId());
-		UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		
+		try{
+			eDAO.remove(event.getId());
+			UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		}
+		catch (RollbackException e) {
+			
+			UserInterfaceUtils.showError("No se puede eliminar debido a una dependencia","Error.");
+		}
 	}
 
 	@Command

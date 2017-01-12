@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.RollbackException;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -16,7 +19,7 @@ import jag.webapp.utils.UserInterfaceUtils;
 
 public class SwimmersVM {
 
-	private Set<Swimmer> swimmers;
+	//private Set<Swimmer> swimmers;
 
 	private Swimmer currentSwimmer=null;
 
@@ -29,7 +32,6 @@ public class SwimmersVM {
 	public SwimmersVM() {
 		this.sDAO = new SwimmerDAO(DesktopEntityManagerManager.getDesktopEntityManager());
 		this.cDAO = new ClubDAO(DesktopEntityManagerManager.getDesktopEntityManager());
-		this.swimmers = (Set<Swimmer>) sDAO.findAll();
 		this.clubs= new ListModelList<>(cDAO.findAll()); //(ListModelList)(Set<Club>) cDAO.findAllClubs();
 	}
 
@@ -56,8 +58,15 @@ public class SwimmersVM {
 	@Command
 	@NotifyChange("swimmers")
 	public void removeSwimmer(@BindingParam("swimmer") Swimmer swimmer) {
-		sDAO.remove(swimmer.getId());
-		UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		
+		try{
+			sDAO.remove(swimmer.getId());
+			UserInterfaceUtils.showNotification("Removed.", "Removing...");
+		}
+		catch (RollbackException e) {
+			
+			UserInterfaceUtils.showError("No se puede eliminar debido a una dependencia","Error.");
+		}
 	}
 
 	@Command
